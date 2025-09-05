@@ -23,7 +23,7 @@ export const CopyButton: FC<CopyButtonProps> = ({ text }) => {
     <button
       disabled={isCopied}
       onClick={copy}
-      className="rounded-md p-2 text-neutral-700 transition-colors hover:bg-neutral-200"
+      className="hover:bg-secondary text-tertiary-foreground rounded-md p-2 transition-colors"
     >
       {isCopied ? <Check size={15} /> : <Copy size={15} />}
     </button>
