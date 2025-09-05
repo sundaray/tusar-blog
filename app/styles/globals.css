@@ -27,7 +27,7 @@ pre.shiki {
   }
 }
 
-/* THIS IS THE MISSING PIECE FOR TOKEN COLORS */
+/* Token colors */
 code[data-theme*=" "] span {
   color: var(--shiki-light) !important;
 }
@@ -37,10 +37,10 @@ code[data-theme*=" "] span {
     color: var(--shiki-dark) !important;
   }
 }
-/* END OF MISSING PIECE */
 
-/* Line styles */
-.line {
+/* CORRECTION: Use [data-line] attribute selector instead of .line class
+*/
+[data-line] {
   display: block;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -48,13 +48,13 @@ code[data-theme*=" "] span {
 }
 
 /* Highlighted line styles */
-.line--highlighted {
+[data-highlighted-line] {
   background-color: #e0f2fe;
   border-left-color: #0ea5e9;
 }
 
 @media (prefers-color-scheme: dark) {
-  .line--highlighted {
+  [data-highlighted-line] {
     background-color: rgba(56, 189, 248, 0.1);
     border-left-color: #38bdf8;
   }
@@ -91,12 +91,9 @@ pre {
   margin-top: 0 !important;
 }
 
-/* Line number styles */
-code[data-line-numbers] {
-  counter-reset: line;
-}
-
-code[data-line-numbers] .line::before {
+/* CORRECTION: Use [data-line] attribute selector for line numbers
+*/
+code[data-line-numbers] [data-line]::before {
   counter-increment: line;
   content: counter(line);
   display: inline-block;
