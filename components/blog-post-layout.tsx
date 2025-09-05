@@ -2,14 +2,14 @@ import { Frontmatter } from "@/types";
 import { format } from "date-fns";
 import Image from "next/image";
 import React from "react";
-
+import { BlogPostTags } from "./blog-post-tags";
 type BlogPostLayoutProps = {
   frontmatter: Frontmatter;
   children: React.ReactNode;
 };
 
 export function BlogPostLayout({ children, frontmatter }: BlogPostLayoutProps) {
-  const { title, publishedAt, author } = frontmatter;
+  const { title, publishedAt, author, tags } = frontmatter;
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-36">
@@ -35,6 +35,11 @@ export function BlogPostLayout({ children, frontmatter }: BlogPostLayoutProps) {
         </div>
       </header>
       <div className="prose dark:prose-invert mt-10">{children}</div>
+      {tags && tags.length > 0 && (
+        <footer className="mt-12 border-t pt-6">
+          <BlogPostTags tags={tags} />
+        </footer>
+      )}
     </article>
   );
 }

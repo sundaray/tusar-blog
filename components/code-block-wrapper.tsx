@@ -1,5 +1,5 @@
+import { CopyButton } from "@/components/copy-button";
 import React, { type ReactNode } from "react";
-import { CopyButton } from "./copy-button";
 
 // Helper function to extract text content from React nodes
 function extractText(node: ReactNode): string {
