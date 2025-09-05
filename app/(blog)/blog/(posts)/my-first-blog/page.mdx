@@ -1,12 +1,20 @@
-import { BlogLayout } from "@/components/blog-layout";
+---
+title: "My First Blog Post"
+description: "This is a short description for my very first blog post."
+author: "Tusarkanta Palauri"
+publishedAt: "2025-09-05"
+tags: ["Next.js", "Remark", "MDX"]
+---
 
-<BlogLayout>
+import { BlogPostLayout } from "@/components/blog-post-layout";
 
-# My First Blog
+<BlogPostLayout frontmatter={frontmatter}>
 
-Welcome to my first blog.
+Welcome to my first blog. The frontmatter is now being displayed by our layout component.
 
-```tsx {3} title="app/components/my-component.tsx" showLineNumbers
+The rest of your markdown content goes here, and it will be passed as `children` to the layout.
+
+```tsx title="app/components/my-component.tsx" showLineNumbers {4}
 import React from "react";
 
 export default function MyComponent() {
@@ -16,4 +24,4 @@ export default function MyComponent() {
 }
 ```
 
-</BlogLayout>
+</BlogPostLayout>

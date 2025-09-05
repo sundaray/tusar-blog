@@ -3,37 +3,28 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* --- STYLES FOR rehype-pretty-code (Nested & Themed) --- */
-
-/* This is our main container. All other styles are nested inside. */
 [data-rehype-pretty-code-figure] {
   @apply border-border rounded-lg border;
 
-  /* Target the title <figcaption> inside the figure */
   & [data-rehype-pretty-code-title] {
-    @apply border-border bg-muted text-muted-foreground flex-1 rounded-t-lg border-b p-3 text-xs;
+    @apply flex-1 rounded-t-lg border-b bg-neutral-100 py-3.5 pl-5 text-xs text-neutral-700;
   }
-  /* Target the <pre> tag inside the figure */
   & pre {
     @apply overflow-x-auto rounded-t-none font-mono;
   }
 
-  /* Target the <code> tag inside the figure */
   & code {
-    @apply text-sm;
+    @apply text-[13px];
   }
 
-  /* Target each line of code */
   & [data-line] {
     @apply block border-l-2 border-transparent px-4 first:pt-4 last:pb-4;
   }
 
-  /* Target highlighted lines */
   & [data-highlighted-line] {
-    @apply border-l-2 border-l-sky-600 bg-sky-100;
+    @apply border-l-2 border-l-blue-500 bg-blue-100/60;
   }
 
-  /* --- Line Number Logic --- */
   & code[data-line-numbers] {
     counter-reset: line;
   }
@@ -47,16 +38,16 @@
 
 /* --- Unchanged Shiki Dynamic Styles --- */
 pre.shiki {
-  background-color: var(--shiki-light-bg) !important;
+  background-color: var(--shiki-light-bg);
 }
 .dark pre.shiki {
-  background-color: var(--shiki-dark-bg) !important;
+  background-color: var(--shiki-dark-bg);
 }
 code[data-theme*=" "] span {
-  color: var(--shiki-light) !important;
+  color: var(--shiki-light);
 }
 .dark code[data-theme*=" "] span {
-  color: var(--shiki-dark) !important;
+  color: var(--shiki-dark);
 }
 
 @theme inline {
@@ -64,6 +55,8 @@ code[data-theme*=" "] span {
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -171,6 +164,10 @@ code[data-theme*=" "] span {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground bg-neutral-50;
+  }
+
+  p {
+    @apply text-neutral-700;
   }
 }
