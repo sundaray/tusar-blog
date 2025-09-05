@@ -1,3 +1,3 @@
 export default function BlogPage() {
-  return <h1 className="text-2xl">Blog Page</h1>;
+  return <div className="mx-auto my-36 max-w-3xl">Blog page</div>;
 }

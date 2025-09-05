@@ -7,3 +7,8 @@ export interface Frontmatter {
   author: string;
   isPublished: boolean;
 }
+
+export type NavItem = {
+  title: string;
+  href: string;
+};

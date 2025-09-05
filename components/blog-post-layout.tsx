@@ -12,15 +12,15 @@ export function BlogPostLayout({ children, frontmatter }: BlogPostLayoutProps) {
   const { title, publishedAt, author } = frontmatter;
 
   return (
-    <article className="mx-auto max-w-3xl px-4">
+    <article className="mx-auto max-w-3xl px-4 py-36">
       <header className="flex flex-col items-center">
         <h1 className="text-4xl font-bold tracking-tight">{title}</h1>
         <div className="mt-10 flex items-center space-x-4">
           <Image
             src="/tusar.jpeg"
             alt={`Avatar of ${author}`}
-            width={42}
-            height={42}
+            width={48}
+            height={48}
             className="size-10 rounded-full object-cover"
           />
           <div>
