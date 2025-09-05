@@ -1,37 +1,107 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* --- STYLES FOR rehype-pretty-code --- */
 
 pre {
-  background-color: var(--shiki-light-bg);
-  padding: 1rem;
+  padding: 1rem 0; /* Vertical padding, horizontal is on the lines */
   border-radius: 0.5rem;
   overflow-x: auto;
   font-family: var(--font-mono);
+  border: 1px solid hsl(220, 13%, 91%); /* Light mode border */
 }
 
 @media (prefers-color-scheme: dark) {
   pre {
-    background-color: var(--shiki-dark-bg);
-  }
-
-  /* This tells Shiki to use its dark theme variables in dark mode */
-  :root {
-    --shiki-light: var(--shiki-dark);
-    --shiki-light-bg: var(--shiki-dark-bg);
+    border-color: #4b5563; /* Dark mode border */
   }
 }
 
-/* Ensures the code inside the highlighted block uses the correct font */
-.shiki code {
+/* Apply the Shiki background colors */
+pre.shiki {
+  background-color: var(--shiki-light-bg) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  pre.shiki {
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
+/* THIS IS THE MISSING PIECE FOR TOKEN COLORS */
+code[data-theme*=" "] span {
+  color: var(--shiki-light) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  code[data-theme*=" "] span {
+    color: var(--shiki-dark) !important;
+  }
+}
+/* END OF MISSING PIECE */
+
+/* Line styles */
+.line {
+  display: block;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-left: 4px solid transparent;
+}
+
+/* Highlighted line styles */
+.line--highlighted {
+  background-color: #e0f2fe;
+  border-left-color: #0ea5e9;
+}
+
+@media (prefers-color-scheme: dark) {
+  .line--highlighted {
+    background-color: rgba(56, 189, 248, 0.1);
+    border-left-color: #38bdf8;
+  }
+}
+
+/* Title styles */
+[data-rehype-pretty-code-title] {
+  padding: 0.5rem 1rem;
   font-family: var(--font-mono);
+  font-size: 0.875rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border: 1px solid;
+  border-bottom: 0;
+}
+
+[data-rehype-pretty-code-title] {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #374151;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-rehype-pretty-code-title] {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #d1d5db;
+  }
+}
+
+pre {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Line number styles */
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2.5rem;
+  margin-right: 1.5rem;
+  text-align: right;
+  color: gray;
 }

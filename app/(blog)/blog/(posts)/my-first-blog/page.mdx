@@ -1,8 +1,12 @@
+import { BlogLayout } from "@/components/blog-layout";
+
+<BlogLayout>
+
 # My First Blog
 
 Welcome to my first blog.
 
-```ts
+```tsx title="app/components/my-component.tsx" showLineNumbers
 import React from "react";
 
 export default function MyComponent() {
@@ -11,3 +15,5 @@ export default function MyComponent() {
   return <div>{message}</div>;
 }
 ```
+
+</BlogLayout>
