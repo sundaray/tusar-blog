@@ -206,6 +206,10 @@ code[data-theme*=" "] span {
     @apply mb-6 leading-7 last:mb-0;
   }
 
+  .blog-post a {
+    @apply text-sky-700 underline underline-offset-4;
+  }
+
   .blog-post ul,
   .blog-post ol {
     @apply marker:text-muted-foreground mb-6 space-y-3 pl-8 last:mb-0;
@@ -221,10 +225,6 @@ code[data-theme*=" "] span {
 
   .blog-post :not(pre) > code {
     @apply text-foreground rounded bg-neutral-200/60 px-1 py-0.5 font-mono text-sm;
-  }
-
-  .blog-post a {
-    @apply text-primary underline-offset-4 hover:underline;
   }
 
   .blog-post strong {

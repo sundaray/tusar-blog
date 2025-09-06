@@ -56,16 +56,16 @@ export function UserAccountNavClient({ user }) {
       <DropdownMenuTrigger
         className={cn("flex items-center space-x-1 rounded-full px-4 py-2")}
       >
-        <span className="text-sm text-neutral-700">My Account</span>
-        <Icons.chevronDown className="inline-block size-4 text-neutral-500" />
+        <span className="text-tertiary-foreground text-sm">My Account</span>
+        <Icons.chevronDown className="text-muted-foreground inline-block size-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             {user?.email && (
               <>
-                <p className="text-xs text-neutral-500">signed in as</p>
-                <p className="w-[200px] truncate text-sm font-medium text-neutral-600">
+                <p className="text-muted-foreground text-xs">signed in as</p>
+                <p className="text-tertiary-foreground w-[200px] truncate text-sm font-medium">
                   {user.email}
                 </p>
               </>
@@ -77,7 +77,7 @@ export function UserAccountNavClient({ user }) {
           <DropdownMenuItem asChild>
             <Link href="/admin">
               <Icons.lock
-                className="size-3 text-neutral-500"
+                className="text-muted-foreground size-3"
                 aria-hidden="true"
               />
               <span>Admin</span>

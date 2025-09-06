@@ -12,7 +12,7 @@ type MainNavProps = {
 export async function MainNav({ items }: MainNavProps) {
   const user = { email: "rawgrittt@gmail.com", role: "admin" };
   return (
-    <div className="fixed inset-x-0 top-0 z-50 mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
+    <div className="bg-background fixed inset-x-0 top-0 z-50 mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
       <Link
         href="/"
         aria-label="Go to homepage"
