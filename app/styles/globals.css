@@ -240,10 +240,10 @@ code[data-theme*=" "] span {
   }
 
   .blog-post .anchor {
-    @apply text-tertiary-foreground absolute -left-8 top-1/2 -translate-y-1/2 cursor-pointer rounded-md p-1 opacity-0 transition-opacity;
+    @apply text-muted-foreground hover:text-foreground absolute -left-8 top-1/2 -translate-y-1/2 translate-x-2 cursor-pointer rounded-md p-1 opacity-0 transition-all duration-200 hover:scale-105;
   }
 
   .blog-post :where(h1, h2, h3, h4, h5, h6):hover .anchor {
-    @apply opacity-100;
+    @apply translate-x-0 opacity-100;
   }
 }

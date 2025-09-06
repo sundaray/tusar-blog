@@ -1,8 +1,10 @@
+import { AnimatedLink } from "@/components/animated-link";
 import { Frontmatter } from "@/types";
 import { format } from "date-fns";
 import Image from "next/image";
 import React from "react";
 import { BlogPostTags } from "./blog-post-tags";
+
 type BlogPostLayoutProps = {
   frontmatter: Frontmatter;
   children: React.ReactNode;
@@ -14,6 +16,9 @@ export function BlogPostLayout({ children, frontmatter }: BlogPostLayoutProps) {
   return (
     <article className="mx-auto max-w-3xl px-4 py-36">
       <header className="flex flex-col items-center">
+        <AnimatedLink href="/blog" className="mb-6">
+          Back to blog
+        </AnimatedLink>
         <h1 className="text-4xl font-bold">{title}</h1>
         <div className="mt-12 flex items-center space-x-4">
           <Image
@@ -25,7 +30,7 @@ export function BlogPostLayout({ children, frontmatter }: BlogPostLayoutProps) {
           />
           <div>
             <p className="text-sm">{author}</p>
-            <p className="text-sm text-neutral-500">
+            <p className="text-muted-foreground text-sm">
               Published{" "}
               <time dateTime={publishedAt}>
                 {format(new Date(publishedAt), "LLL d, yyyy")}

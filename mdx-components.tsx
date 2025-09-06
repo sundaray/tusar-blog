@@ -53,18 +53,22 @@ function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
       .join("");
 
     const slug = slugify(contentString);
-    return React.createElement(
-      `h${level}`,
-      { id: slug },
-      [
-        React.createElement("a", {
+
+    return React.createElement(`h${level}`, { id: slug }, [
+      React.createElement(
+        "a",
+        {
           href: `#${slug}`,
           key: `link-${slug}`,
           className: "anchor",
+          "aria-label": `Link to section: ${contentString}`,
+        },
+        React.createElement(Icons.link, {
+          className: "size-4",
         }),
-      ],
+      ),
       children,
-    );
+    ]);
   };
   Heading.displayName = `Heading${level}`;
   return Heading;
