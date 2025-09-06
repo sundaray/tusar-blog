@@ -23,6 +23,9 @@ export function NavItem({ href, title }: NavItemType) {
 
         // Active state styles
         isActive && "underline-offset-3 font-medium text-neutral-900 underline",
+
+        // Focus styles
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2",
       )}
       href={href}
     >

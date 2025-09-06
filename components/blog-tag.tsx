@@ -24,7 +24,7 @@ function BlogTag({ children, className, ref, ...props }: BlogTagProps) {
       textValue={textValue}
       {...props}
       className={cn(
-        "text-foreground flex items-center gap-x-2 rounded-full bg-neutral-200 px-2 py-1 text-sm font-medium outline-none dark:bg-neutral-800",
+        "text-foreground flex items-center gap-x-2 rounded-full bg-neutral-200/60 px-3 py-1.5 text-sm font-medium outline-none dark:bg-neutral-800",
         "data-[focus-visible]:ring-2 data-[focus-visible]:ring-sky-600 data-[focus-visible]:ring-offset-2",
         "transition-all group-has-[[data-pending]]:pointer-events-none group-has-[[data-pending]]:opacity-50",
         className,
@@ -36,7 +36,7 @@ function BlogTag({ children, className, ref, ...props }: BlogTagProps) {
           {allowsRemoving && (
             <Button
               slot="remove"
-              className="group h-auto cursor-pointer rounded-full p-1 text-neutral-500 transition-colors data-[hovered]:bg-neutral-300/50 data-[hovered]:text-neutral-700"
+              className="text-muted-foreground group h-auto cursor-pointer rounded-full p-1 transition-colors data-[hovered]:bg-neutral-300/50 data-[hovered]:text-neutral-700"
             >
               <Icons.x className="size-4" />
             </Button>

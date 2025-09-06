@@ -10,7 +10,7 @@
     @apply text-tertiary-foreground dark:text-muted-foreground flex-1 rounded-t-lg border-b py-3.5 pl-5 text-xs;
   }
   & pre {
-    @apply overflow-x-auto rounded-t-none font-mono;
+    @apply overflow-x-auto rounded-b-lg rounded-t-none bg-white font-mono;
   }
 
   & code {
@@ -22,7 +22,7 @@
   }
 
   & [data-highlighted-line] {
-    @apply border-l-2 border-l-blue-500 bg-blue-50 dark:border-l-blue-500 dark:bg-blue-500/10;
+    @apply border-l-2 border-l-sky-500 bg-sky-50 dark:border-l-sky-500 dark:bg-sky-500/10;
   }
 
   & code[data-line-numbers] {
@@ -172,5 +172,78 @@ code[data-theme*=" "] span {
 
   p {
     @apply text-tertiary-foreground;
+  }
+
+  ul,
+  ol {
+    @apply text-tertiary-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-foreground font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .blog-post h1 {
+    @apply text-4xl;
+  }
+
+  .blog-post h2 {
+    @apply mb-4 mt-12 text-2xl;
+  }
+
+  .blog-post h3 {
+    @apply mb-4 mt-10 text-xl;
+  }
+
+  .blog-post p {
+    @apply mb-6 leading-7 last:mb-0;
+  }
+
+  .blog-post ul,
+  .blog-post ol {
+    @apply marker:text-muted-foreground mb-6 space-y-3 pl-8 last:mb-0;
+  }
+
+  .blog-post ul {
+    @apply list-disc;
+  }
+
+  .blog-post ol {
+    @apply list-decimal;
+  }
+
+  .blog-post :not(pre) > code {
+    @apply text-foreground rounded bg-neutral-200/60 px-1 py-0.5 font-mono text-sm;
+  }
+
+  .blog-post a {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
+
+  .blog-post strong {
+    @apply text-foreground font-semibold;
+  }
+
+  .blog-post figure {
+    @apply my-6;
+  }
+
+  .blog-post :where(h1, h2, h3, h4, h5, h6) {
+    @apply relative scroll-mt-20;
+  }
+
+  .blog-post .anchor {
+    @apply text-tertiary-foreground absolute -left-8 top-1/2 -translate-y-1/2 cursor-pointer rounded-md p-1 opacity-0 transition-opacity;
+  }
+
+  .blog-post :where(h1, h2, h3, h4, h5, h6):hover .anchor {
+    @apply opacity-100;
   }
 }

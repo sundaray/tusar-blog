@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-export function UserAccountNavClient({ user }: { user: User }) {
+export function UserAccountNavClient({ user }) {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -73,15 +73,6 @@ export function UserAccountNavClient({ user }: { user: User }) {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/dashboard">
-            <Icons.dashboard
-              className="size-3 text-neutral-500"
-              aria-hidden="true"
-            />
-            <span>Dashboard</span>
-          </Link>
-        </DropdownMenuItem>
         {user?.role === "admin" && (
           <DropdownMenuItem asChild>
             <Link href="/admin">

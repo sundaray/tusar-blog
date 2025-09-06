@@ -1,0 +1,65 @@
+/* app/styles/blog-post.css */
+
+/* --- HEADING SPACING & STYLES --- */
+/* h1 is styled in the layout component, but we can add rules here if needed */
+.blog-post h1 {
+  @apply text-4xl;
+}
+
+/* h2 creates a major section break. It gets significant top margin. */
+.blog-post h2 {
+  @apply border-border mb-4 mt-12 border-b pb-2 text-2xl;
+}
+
+/* h3 is a sub-heading, so it has less top margin than h2. */
+.blog-post h3 {
+  @apply mb-4 mt-10 text-xl;
+}
+
+/* --- PARAGRAPH & LIST SPACING --- */
+
+/* Standard paragraphs have a bottom margin to separate them from what follows. */
+.blog-post p {
+  @apply mb-6 leading-7 last:mb-0;
+}
+
+/* Lists have the same vertical spacing as paragraphs to maintain rhythm. */
+.blog-post ul,
+.blog-post ol {
+  @apply mb-6 list-inside space-y-2 pl-4 last:mb-0;
+}
+
+.blog-post ul {
+  @apply list-disc;
+}
+
+.blog-post ol {
+  @apply list-decimal;
+}
+
+/* List items themselves have a bit of breathing room. */
+.blog-post li {
+  @apply leading-7;
+}
+
+/* --- INLINE & BLOCK ELEMENT STYLES --- */
+
+/* A clear, on-brand style for links. */
+.blog-post a {
+  @apply text-primary underline-offset-4 hover:underline;
+}
+
+/* Emphasize text without disrupting the flow. */
+.blog-post strong {
+  @apply text-foreground font-semibold;
+}
+
+/* The parent heading needs to be a positioning container for the icon. */
+.blog-post :where(h1, h2, h3, h4, h5, h6) {
+  @apply group relative scroll-mt-20; /* scroll-mt adds top offset when jumping to an anchor */
+}
+
+/* The anchor icon itself. It's invisible until the heading is hovered. */
+.blog-post .anchor {
+  @apply text-tertiary-foreground absolute -left-8 top-1/2 -translate-y-1/2 cursor-pointer rounded-md p-1 opacity-0 transition-opacity group-hover:opacity-100;
+}

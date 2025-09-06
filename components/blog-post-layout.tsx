@@ -14,8 +14,8 @@ export function BlogPostLayout({ children, frontmatter }: BlogPostLayoutProps) {
   return (
     <article className="mx-auto max-w-3xl px-4 py-36">
       <header className="flex flex-col items-center">
-        <h1 className="text-4xl font-bold tracking-tight">{title}</h1>
-        <div className="mt-10 flex items-center space-x-4">
+        <h1 className="text-4xl font-bold">{title}</h1>
+        <div className="mt-12 flex items-center space-x-4">
           <Image
             src="/tusar.jpeg"
             alt={`Avatar of ${author}`}
@@ -34,7 +34,7 @@ export function BlogPostLayout({ children, frontmatter }: BlogPostLayoutProps) {
           </div>
         </div>
       </header>
-      <div className="prose dark:prose-invert mt-10">{children}</div>
+      <div className="blog-post mt-12">{children}</div>
       {tags && tags.length > 0 && (
         <footer className="mt-12 border-t pt-6">
           <BlogPostTags tags={tags} />
