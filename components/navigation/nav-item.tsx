@@ -16,13 +16,13 @@ export function NavItem({ href, title }: NavItemType) {
         "text-tertiary-foreground dark:text-muted-foreground dark:hover:text-muted-foreground hover:text-tertiary-foreground relative py-2 text-sm transition-colors",
 
         // Pseudo-element for the underline
-        "after:bg-foreground dark:after:bg-muted-foreground after:absolute after:bottom-1.5 after:left-0 after:h-[1px] after:w-0 after:transition-all after:duration-200 after:ease-out after:content-['']",
+        "after:bg-foreground dark:after:bg-muted-foreground after:absolute after:bottom-1.5 after:left-0 after:h-[1.2px] after:w-0 after:transition-all after:duration-200 after:ease-out after:content-['']",
 
         // Hover state for the pseudo-element
-        "hover:after:w-full",
+        !isActive && "hover:after:w-full",
 
         // Active state styles
-        isActive && "underline-offset-3 text-foreground font-medium underline",
+        isActive && "after:w-full",
 
         // Focus styles
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2",

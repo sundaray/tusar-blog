@@ -19,7 +19,7 @@ export function BlogPostLayout({ children, frontmatter }: BlogPostLayoutProps) {
         <AnimatedLink href="/blog" className="mb-6">
           Back to blog
         </AnimatedLink>
-        <h1 className="text-4xl font-bold">{title}</h1>
+        <h1 className="text-balance text-4xl font-bold">{title}</h1>
         <div className="mt-12 flex items-center space-x-4">
           <Image
             src="/tusar.jpeg"

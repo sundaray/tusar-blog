@@ -14,7 +14,7 @@ export function AnimatedLink({ href, children, className }: AnimatedLinkProps) {
     <Link
       href={href}
       className={cn(
-        "group relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-neutral-200/60",
+        "group relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-neutral-200/60 dark:hover:bg-neutral-800",
         className,
       )}
     >
