@@ -21,14 +21,14 @@ export function AnimatedLink({ href, children, className }: AnimatedLinkProps) {
       <div className="relative size-4">
         <Icons.chevronLeft
           className={cn(
-            "absolute left-0 top-0 size-4 transition-all duration-200 ease-out group-hover:-translate-x-4 group-hover:scale-95 group-hover:opacity-0",
+            "absolute left-0 top-0 size-4 transition-all duration-200 ease-out group-hover:-translate-x-2 group-hover:scale-95 group-hover:opacity-0",
             "text-muted-foreground",
           )}
         />
 
         <Icons.chevronLeft
           className={cn(
-            "absolute left-0 top-0 size-4 translate-x-4 scale-95 opacity-0 transition-all duration-200 ease-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100",
+            "absolute left-0 top-0 size-4 translate-x-2 scale-95 opacity-0 transition-all duration-200 ease-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100",
             "text-muted-foreground",
           )}
         />

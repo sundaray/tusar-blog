@@ -1,6 +1,5 @@
 import { MobileNav } from "@/components/navigation/mobile-nav";
 import { NavItem } from "@/components/navigation/nav-item";
-import { UserAccountNav } from "@/components/navigation/user-account-nav";
 import { ThemeSwitcher } from "@/components/ui/kibo-ui/theme-switcher";
 import type { NavItem as NavItemType } from "@/types";
 import Link from "next/link";
@@ -12,7 +11,7 @@ type MainNavProps = {
 export async function MainNav({ items }: MainNavProps) {
   const user = { email: "rawgrittt@gmail.com", role: "admin" };
   return (
-    <div className="bg-background fixed inset-x-0 top-0 z-50 mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
+    <>
       <Link
         href="/"
         aria-label="Go to homepage"
@@ -31,7 +30,7 @@ export async function MainNav({ items }: MainNavProps) {
       </nav>
       <ThemeSwitcher />
       <MobileNav user={user} />
-      <UserAccountNav />
-    </div>
+      {/* <UserAccountNav /> */}
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import { MainNav } from "@/components/navigation/main-nav";
+import { MainNavWrapper } from "@/components/navigation/main-nav-wrapper";
 import { RouterProvider } from "@/components/router-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { navbarLinks } from "@/config/navbar";
@@ -30,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >
@@ -42,7 +43,9 @@ export default function RootLayout({
         >
           <NextTopLoader showSpinner={false} color="#0284c7" shadow={false} />
           <header>
-            <MainNav items={navbarLinks.main} />
+            <MainNavWrapper>
+              <MainNav items={navbarLinks.main} />
+            </MainNavWrapper>
           </header>
 
           <main className="flex-1">
