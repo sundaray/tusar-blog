@@ -10,7 +10,7 @@
     @apply text-tertiary-foreground dark:text-muted-foreground flex-1 rounded-t-lg border-b py-3.5 pl-5 text-xs;
   }
   & pre {
-    @apply overflow-x-auto rounded-b-lg rounded-t-none bg-white font-mono;
+    @apply overflow-x-auto rounded-b-lg rounded-t-none bg-white font-mono dark:bg-transparent;
   }
 
   & code {
@@ -199,7 +199,7 @@ code[data-theme*=" "] span {
   }
 
   .blog-post h3 {
-    @apply mb-4 mt-10 text-xl;
+    @apply mb-4 mt-12 text-xl;
   }
 
   .blog-post p {
@@ -224,7 +224,7 @@ code[data-theme*=" "] span {
   }
 
   .blog-post :not(pre) > code {
-    @apply text-foreground rounded bg-neutral-200/60 px-1 py-0.5 font-mono text-sm;
+    @apply text-foreground rounded bg-neutral-200/60 px-1 py-0.5 font-mono text-sm dark:bg-neutral-800;
   }
 
   .blog-post strong {

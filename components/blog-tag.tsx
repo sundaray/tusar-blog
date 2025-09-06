@@ -67,7 +67,7 @@ function BlogTagGroup<T extends object>({
   return (
     <TagGroup {...props}>
       {label && (
-        <Label className={cn("font-medium text-neutral-900", labelClassName)}>
+        <Label className={cn("text-foreground font-medium", labelClassName)}>
           {label}
         </Label>
       )}

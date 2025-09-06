@@ -7,6 +7,7 @@ tags: ["Next.js", "Remark", "MDX"]
 ---
 
 import { BlogPostLayout } from "@/components/blog-post-layout";
+import { BlogImage } from "@/components/blog-image";
 
 <BlogPostLayout frontmatter={frontmatter}>
 
@@ -25,6 +26,14 @@ export default function MyComponent() {
 ```
 
 You’ve been assigned an essay and the [anxiety](https://google.com) are clear: “Perform a close reading.” For many, this phrase is a source of anxiety. Does it mean reading with your face closer to the page? Is it just a fancy term for summarizing? What are you actually supposed to be looking for?
+
+<BlogImage
+  src="/images/blog/airpods.jpeg"
+  alt="A pair of Apple AirPods Pro on a clean background"
+  width={300}
+  height={50}
+  caption="The latest Apple AirPods Pro with the new charging case."
+/>
 
 ## H2 Heading
 
