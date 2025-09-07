@@ -6,10 +6,7 @@ publishedAt: "2025-09-05"
 tags: ["Next.js", "Remark", "MDX"]
 ---
 
-import { BlogPostLayout } from "@/components/blog-post-layout";
 import { BlogImage } from "@/components/blog-image";
-
-<BlogPostLayout frontmatter={frontmatter}>
 
 Welcome to my first blog. The [frontmatter](/about) is now being displayed by our layout component.
 
@@ -52,5 +49,3 @@ Following the ordered list, this paragraph introduces the final element, an unor
 - **list-inside**: This tells the browser to place the marker (the bullet or number) inside the list item's text box. If the text content starts on a new line (which can happen when MDX wraps list content in tags), it appears underneath the marker.
 
 - **list-outside**: This places the marker outside the text box. The text content is indented, and all lines of text will align correctly with each other, which is the standard appearance you expect.
-
-</BlogPostLayout>

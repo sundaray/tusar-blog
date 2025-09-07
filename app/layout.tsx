@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { MainNav } from "@/components/navigation/main-nav";
 import { MainNavWrapper } from "@/components/navigation/main-nav-wrapper";
 import { RouterProvider } from "@/components/router-provider";
@@ -53,6 +54,7 @@ export default function RootLayout({
               <NuqsAdapter>{children}</NuqsAdapter>
             </RouterProvider>
           </main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

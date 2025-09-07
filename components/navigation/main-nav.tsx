@@ -15,7 +15,7 @@ export async function MainNav({ items }: MainNavProps) {
       <Link
         href="/"
         aria-label="Go to homepage"
-        className="mr-10 flex items-center font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
+        className="dark:focus-visible:ring-offset-background mr-10 flex items-center font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
       >
         Tusarkanta Palauri
       </Link>

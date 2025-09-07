@@ -19,7 +19,7 @@ export function BlogImage({
     <figure className="my-6 flex flex-col items-center">
       <Image src={src} alt={alt} width={width} height={height} />
       {caption && (
-        <figcaption className="text-muted-foreground mt-2 text-center text-sm">
+        <figcaption className="text-muted-foreground mt-4 text-center text-sm">
           {caption}
         </figcaption>
       )}

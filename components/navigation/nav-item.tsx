@@ -25,7 +25,7 @@ export function NavItem({ href, title }: NavItemType) {
         isActive && "after:w-full",
 
         // Focus styles
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2",
+        "dark:focus-visible:ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2",
       )}
       href={href}
     >

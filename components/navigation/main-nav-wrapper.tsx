@@ -13,14 +13,10 @@ export function MainNavWrapper({ children }: { children: React.ReactNode }) {
   });
 
   return (
-    <div
-      className={cn(
-        "bg-background/80 fixed inset-x-0 top-0 z-50 backdrop-blur-sm",
-      )}
-    >
+    <div className={cn("fixed inset-x-0 top-0 z-50 mx-auto max-w-6xl")}>
       <div
         className={cn(
-          "duration:200 mx-auto flex h-20 max-w-6xl items-center justify-between px-4 transition-all",
+          "duration:200 bg-background mx-auto flex h-20 max-w-6xl items-center justify-between px-4 transition-all",
           {
             "border-b": scrolled,
           },
