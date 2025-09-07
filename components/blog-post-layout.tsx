@@ -22,7 +22,7 @@ export function BlogPostLayout({
 
   return (
     <div className="lg:grid-cols-16 mx-auto max-w-5xl px-4 py-36 lg:grid">
-      <article className="lg:col-end-14 lg:col-start-1">
+      <article className="col-end-17 col-start-1 lg:col-start-1 lg:col-end-13">
         <header className="flex flex-col items-center">
           <AnimatedLink href="/blog" className="mb-6">
             Back to blog
@@ -55,7 +55,7 @@ export function BlogPostLayout({
         )}
       </article>
 
-      <aside className="lg:col-end-16 lg:col-start-14 hidden lg:block">
+      <aside className="lg:col-end-17 lg:col-start-14 hidden lg:block">
         <div className="sticky top-24">
           <TableOfContents toc={toc} />
         </div>

@@ -21,6 +21,7 @@ import {
   Search,
   Sparkle,
   Star,
+  TableOfContents,
   Tags,
   User,
   X,
@@ -49,6 +50,7 @@ export const Icons = {
   spinner: LoaderCircle,
   star: Star,
   tags: Tags,
+  toc: TableOfContents,
   user: User,
   x: X,
   google: ({ ...props }: LucideProps) => (

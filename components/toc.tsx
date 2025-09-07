@@ -1,5 +1,5 @@
 "use client";
-
+import { Icons } from "@/components/icons";
 import { useMounted } from "@/hooks/use-mounted";
 import { type TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
@@ -31,8 +31,13 @@ export function TableOfContents({ toc }: TocProps) {
 
   return (
     <div className="space-y-2">
-      <p className="font-medium">On this page</p>
-      <Tree tree={toc} activeItem={activeHeading} />
+      <p className="flex items-center gap-2">
+        <Icons.toc className="text-muted-foreground size-4" />
+        <span>On this page</span>
+      </p>{" "}
+      <div className="border-l pl-4">
+        <Tree tree={toc} activeItem={activeHeading} />
+      </div>
     </div>
   );
 }
@@ -87,9 +92,9 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
             <a
               href={item.url}
               className={cn(
-                "hover:text-foreground inline-block no-underline transition-colors",
+                "hover:text-foreground inline-block text-sm no-underline transition-colors",
                 item.url === `#${activeItem}`
-                  ? "text-foreground font-medium"
+                  ? "text-tertiary-foreground"
                   : "text-muted-foreground",
               )}
             >
