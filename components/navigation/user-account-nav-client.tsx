@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
 export function UserAccountNavClient() {
@@ -20,8 +19,6 @@ export function UserAccountNavClient() {
   const [isPending, startTransition] = useTransition();
 
   const user = { email: "rawgrittt@gmail.com", role: "admin" };
-
-  const router = useRouter();
 
   // Prevent dropdown from closing during sign out
   function handleOpenChange(open: boolean) {
