@@ -14,10 +14,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-export function UserAccountNavClient({ user }) {
+export function UserAccountNavClient() {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+
+  const user = { email: "rawgrittt@gmail.com", role: "admin" };
 
   const router = useRouter();
 
@@ -32,23 +34,15 @@ export function UserAccountNavClient({ user }) {
 
   // Handle the sign out process
   function handleSignOut() {
-    // startTransition(async () => {
-    //   setError(null);
-    //   try {
-    //     await signOut({
-    //       fetchOptions: {
-    //         onSuccess: () => {
-    //           setIsOpen(false);
-    //           router.push("/");
-    //           router.refresh();
-    //         },
-    //       },
-    //     });
-    //   } catch (error) {
-    //     console.error("Sign out error:", error);
-    //     setError("Sign out failed. Try again.");
-    //   }
-    // });
+    startTransition(async () => {
+      setError(null);
+      try {
+        console.log("User signed out.");
+      } catch (error) {
+        console.error("Sign out error:", error);
+        setError("Sign out failed. Try again.");
+      }
+    });
   }
 
   return (

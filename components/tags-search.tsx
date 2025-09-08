@@ -13,7 +13,7 @@ export function TagsSearch({ className }: { className?: string }) {
     shallow: false,
   });
 
-  const [isPending, startTransition] = React.useTransition();
+  const [_, startTransition] = React.useTransition();
 
   const handleSearch = useDebouncedCallback((term: string) => {
     startTransition(() => {

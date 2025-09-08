@@ -9,8 +9,6 @@ type MainNavProps = {
 };
 
 export async function MainNav({ items }: MainNavProps) {
-  const user = { email: "rawgrittt@gmail.com", role: "admin" };
-
   return (
     <div className="flex w-full items-center">
       <div className="flex items-center space-x-3">

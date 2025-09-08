@@ -10,7 +10,7 @@ import { useDebouncedCallback } from "use-debounce";
 
 export function BlogSearch({ className }: { className?: string }) {
   const [search, setSearch] = useQueryState("search", blogSearchParams.search);
-  const [isPending, startTransition] = React.useTransition();
+  const [_, startTransition] = React.useTransition();
 
   const handleSearch = useDebouncedCallback((term: string) => {
     startTransition(() => {
