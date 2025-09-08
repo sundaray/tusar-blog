@@ -1,12 +1,13 @@
 "use client";
+
 import { Icons } from "@/components/icons";
 import { useMounted } from "@/hooks/use-mounted";
-import { type TableOfContents } from "@/lib/toc";
+import { type TableOfContents as TOCType } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 import * as React from "react";
 
 interface TocProps {
-  toc: TableOfContents;
+  toc: TOCType;
 }
 
 export function TableOfContents({ toc }: TocProps) {
@@ -24,6 +25,65 @@ export function TableOfContents({ toc }: TocProps) {
 
   const activeHeading = useActiveItem(itemIds);
   const mounted = useMounted();
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [indicator, setIndicator] = React.useState({
+    top: 0,
+    height: 0,
+    borderWidth: 1,
+    visible: false,
+  });
+
+  React.useLayoutEffect(() => {
+    const containerElement = containerRef.current;
+    if (!containerElement) return;
+    const updateBorderWidth = () => {
+      const bw = parseFloat(
+        getComputedStyle(containerElement).borderLeftWidth || "1",
+      );
+      setIndicator((prev) => ({ ...prev, borderWidth: isNaN(bw) ? 1 : bw }));
+    };
+    updateBorderWidth();
+    const ro = new ResizeObserver(updateBorderWidth);
+    ro.observe(containerElement);
+    return () => ro.disconnect();
+  }, []);
+
+  React.useLayoutEffect(() => {
+    const containerElement = containerRef.current;
+    if (!containerElement || !activeHeading) {
+      setIndicator((prev) => ({ ...prev, visible: false }));
+      return;
+    }
+    const esc = (s: string) =>
+      (window as any).CSS?.escape ? (window as any).CSS.escape(s) : s;
+    const selector = `a[href="#${esc(activeHeading)}"]`;
+    const linkElement =
+      containerElement.querySelector<HTMLAnchorElement>(selector);
+    if (!linkElement) {
+      setIndicator((prev) => ({ ...prev, visible: false }));
+      return;
+    }
+    const updatePosition = () => {
+      const containerRect = containerElement.getBoundingClientRect();
+      const linkRect = linkElement.getBoundingClientRect();
+      const top = linkRect.top - containerRect.top;
+      const height = linkRect.height;
+      setIndicator((prev) => ({
+        ...prev,
+        top,
+        height,
+        visible: height > 0,
+      }));
+    };
+    updatePosition();
+    const ro = new ResizeObserver(updatePosition);
+    ro.observe(linkElement);
+    window.addEventListener("resize", updatePosition);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [activeHeading, toc]);
 
   if (!mounted || !toc?.items) {
     return null;
@@ -32,10 +92,22 @@ export function TableOfContents({ toc }: TocProps) {
   return (
     <div className="space-y-2">
       <p className="flex items-center gap-2">
-        <Icons.toc className="text-muted-foreground size-4" />
+        <Icons.toc className="size-4" />
         <span>On this page</span>
-      </p>{" "}
-      <div className="border-l pl-4">
+      </p>
+      <div ref={containerRef} className="border-border relative border-l pl-4">
+        {indicator.visible && (
+          <span
+            aria-hidden
+            className="bg-foreground pointer-events-none absolute transition-all duration-200"
+            style={{
+              left: `-${indicator.borderWidth}px`,
+              top: `${indicator.top}px`,
+              width: `${indicator.borderWidth}px`,
+              height: `${indicator.height}px`,
+            }}
+          />
+        )}
         <Tree tree={toc} activeItem={activeHeading} />
       </div>
     </div>
@@ -44,7 +116,6 @@ export function TableOfContents({ toc }: TocProps) {
 
 function useActiveItem(itemIds: string[]) {
   const [activeId, setActiveId] = React.useState<string | null>(null);
-
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -56,14 +127,12 @@ function useActiveItem(itemIds: string[]) {
       },
       { rootMargin: `0% 0% -80% 0%` },
     );
-
     itemIds?.forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
         observer.observe(element);
       }
     });
-
     return () => {
       itemIds?.forEach((id) => {
         const element = document.getElementById(id);
@@ -73,17 +142,18 @@ function useActiveItem(itemIds: string[]) {
       });
     };
   }, [itemIds]);
-
   return activeId;
 }
 
-interface TreeProps {
-  tree: TableOfContents;
+function Tree({
+  tree,
+  level = 1,
+  activeItem,
+}: {
+  tree: TOCType;
   level?: number;
   activeItem?: string | null;
-}
-
-function Tree({ tree, level = 1, activeItem }: TreeProps) {
+}) {
   return tree?.items?.length && level < 3 ? (
     <ul className={cn("m-0 list-none", { "pl-4": level !== 1 })}>
       {tree.items.map((item, index) => {
@@ -94,7 +164,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
               className={cn(
                 "hover:text-foreground inline-block text-sm no-underline transition-colors",
                 item.url === `#${activeItem}`
-                  ? "text-tertiary-foreground"
+                  ? "text-foreground"
                   : "text-muted-foreground",
               )}
             >
