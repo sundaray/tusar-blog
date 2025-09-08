@@ -92,7 +92,7 @@ export function TableOfContents({ toc }: TocProps) {
   return (
     <div className="space-y-2">
       <p className="flex items-center gap-2">
-        <Icons.toc className="size-4" />
+        <Icons.toc className="text-muted-foreground size-4" />
         <span>On this page</span>
       </p>
       <div ref={containerRef} className="border-border relative border-l pl-4">
@@ -155,14 +155,18 @@ function Tree({
   activeItem?: string | null;
 }) {
   return tree?.items?.length && level < 3 ? (
-    <ul className={cn("m-0 list-none", { "pl-4": level !== 1 })}>
+    <ul
+      className={cn("list-none space-y-2", {
+        "pl-4 pt-2": level !== 1,
+      })}
+    >
       {tree.items.map((item, index) => {
         return (
-          <li key={index} className={cn("mt-0 pt-2")}>
+          <li key={index}>
             <a
               href={item.url}
               className={cn(
-                "hover:text-foreground inline-block text-sm no-underline transition-colors",
+                "hover:text-foreground inline-block text-sm transition-colors",
                 item.url === `#${activeItem}`
                   ? "text-foreground"
                   : "text-muted-foreground",
