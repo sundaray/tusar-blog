@@ -33,12 +33,7 @@ export function MobileNav() {
     <div className="md:hidden">
       <MenuIcon isOpen={isOpen} onToggle={toggleMenu} />
       <AnimatePresence>
-        {isOpen && (
-          <>
-            <Backdrop onToggle={toggleMenu} />
-            <MenuDrawer onLinkClick={() => setIsOpen(false)} />
-          </>
-        )}
+        {isOpen && <MenuDrawer onLinkClick={() => setIsOpen(false)} />}
       </AnimatePresence>
     </div>
   );
@@ -96,44 +91,52 @@ function MenuIcon({
 }
 
 // ============================================================================
-// Backdrop
-// ============================================================================
-function Backdrop({ onToggle }: { onToggle: () => void }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.15, ease: "easeOut" }}
-      onClick={onToggle}
-      className="fixed inset-x-0 bottom-0 top-20 z-30 bg-black/20 backdrop-blur-sm"
-      aria-hidden="true"
-    />
-  );
-}
-
-// ============================================================================
 // MenuDrawer
 // ============================================================================
 function MenuDrawer({ onLinkClick }: { onLinkClick: () => void }) {
+  const items = navbarLinks.main;
+
+  const drawerVariants = {
+    closed: { opacity: 0 },
+    open: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+      },
+    },
+  } as const;
+
+  const itemVariants = {
+    closed: { opacity: 0, y: -10 },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: { ease: "easeOut" },
+    },
+  } as const;
+
   return (
     <motion.div
-      initial={{ opacity: 0, x: "-100%" }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: "-100%" }}
-      transition={{ duration: 0.15, ease: "easeOut" }}
-      className="fixed left-0 top-20 z-40 h-[calc(100vh-5rem)] min-w-72 max-w-md bg-neutral-50 p-6 shadow-xl"
+      initial="closed"
+      animate="open"
+      exit="closed"
+      variants={drawerVariants}
+      // top: 5rem (h-20) so drawer sits below main nav; height = calc(100vh - 5rem)
+      className="fixed left-0 right-0 top-20 z-40 h-[calc(100vh-5rem)] w-full bg-neutral-50 p-6"
+      role="dialog"
+      aria-modal="true"
     >
-      <nav>
-        <ul className="flex flex-col space-y-2">
-          {navbarLinks.main.map((item) => (
-            <li key={item.href}>
+      <nav className="h-full">
+        {/* center items both vertically and horizontally */}
+        <motion.ul className="flex h-full flex-col items-center justify-center space-y-4">
+          {items.map((item) => (
+            <motion.li key={item.href} variants={itemVariants}>
               <MobileNavLink href={item.href} onClick={onLinkClick}>
                 {item.title}
               </MobileNavLink>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </nav>
     </motion.div>
   );
@@ -159,7 +162,8 @@ function MobileNavLink({
       href={href}
       onClick={onClick}
       className={cn(
-        "block rounded-md px-4 py-2 text-base font-medium transition-colors",
+        // centered size and weight per your request
+        "block w-full rounded-md py-2 text-lg font-medium transition-colors",
         isActive
           ? "font-semibold text-neutral-900"
           : "text-neutral-700 hover:text-neutral-900",
