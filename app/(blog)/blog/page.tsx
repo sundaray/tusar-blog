@@ -1,6 +1,7 @@
 import { BlogActions } from "@/components/blog-actions";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { getAllPosts } from "@/lib/blog";
+import { Suspense } from "react";
 
 export default async function BlogPage() {
   const allPosts = getAllPosts();
@@ -14,8 +15,9 @@ export default async function BlogPage() {
           Posts on AUTOSAR, Embedded Systsems & C/C++
         </p>
       </div>
-
-      <BlogActions allPosts={allPosts} className="mt-12" />
+      <Suspense>
+        <BlogActions allPosts={allPosts} className="mt-12" />
+      </Suspense>
     </section>
   );
 }
