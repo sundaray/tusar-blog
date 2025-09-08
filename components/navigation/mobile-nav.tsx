@@ -1,6 +1,5 @@
 "use client";
 
-import { UserAccountNavClient } from "@/components/navigation/user-account-nav-client";
 import { navbarLinks } from "@/config/navbar";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
@@ -11,7 +10,7 @@ import React, { useEffect, useState } from "react";
 // ============================================================================
 // MobileNav
 // ============================================================================
-export function MobileNav({ user }) {
+export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -37,7 +36,7 @@ export function MobileNav({ user }) {
         {isOpen && (
           <>
             <Backdrop onToggle={toggleMenu} />
-            <MenuDrawer user={user} onLinkClick={() => setIsOpen(false)} />
+            <MenuDrawer onLinkClick={() => setIsOpen(false)} />
           </>
         )}
       </AnimatePresence>
@@ -116,13 +115,7 @@ function Backdrop({ onToggle }: { onToggle: () => void }) {
 // ============================================================================
 // MenuDrawer
 // ============================================================================
-function MenuDrawer({
-  user,
-  onLinkClick,
-}: {
-  user: User | null;
-  onLinkClick: () => void;
-}) {
+function MenuDrawer({ onLinkClick }: { onLinkClick: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: "-100%" }}
@@ -142,22 +135,6 @@ function MenuDrawer({
           ))}
         </ul>
       </nav>
-
-      <hr className="my-4 border-neutral-200" />
-
-      <div className="flex flex-col items-center">
-        {user ? (
-          <UserAccountNavClient user={user} />
-        ) : (
-          <Link
-            href="/signin"
-            onClick={onLinkClick}
-            className="flex w-full items-center justify-center rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-900/90"
-          >
-            Sign In
-          </Link>
-        )}
-      </div>
     </motion.div>
   );
 }

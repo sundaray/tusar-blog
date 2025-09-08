@@ -10,16 +10,32 @@ type MainNavProps = {
 
 export async function MainNav({ items }: MainNavProps) {
   const user = { email: "rawgrittt@gmail.com", role: "admin" };
+
   return (
-    <>
-      <Link
-        href="/"
-        aria-label="Go to homepage"
-        className="dark:focus-visible:ring-offset-background mr-10 flex items-center font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
-      >
-        Tusarkanta Palauri
-      </Link>
-      <nav className="mr-auto hidden md:block">
+    <div className="flex w-full items-center">
+      <div className="flex items-center space-x-3">
+        <Link
+          href="/"
+          aria-label="Go to homepage"
+          className="hidden items-center font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 md:inline-flex"
+        >
+          Tusarkanta Palauri
+        </Link>
+
+        <Link
+          href="/"
+          aria-label="Go to homepage"
+          className="inline-flex items-center font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 md:hidden"
+        >
+          TP
+        </Link>
+
+        <div className="md:hidden">
+          <MobileNav />
+        </div>
+      </div>
+
+      <nav className="hidden md:ml-6 md:flex">
         <ul className="flex space-x-4">
           {items.map((item) => (
             <li key={item.title}>
@@ -28,9 +44,10 @@ export async function MainNav({ items }: MainNavProps) {
           ))}
         </ul>
       </nav>
-      <ThemeSwitcher />
-      <MobileNav user={user} />
-      {/* <UserAccountNav /> */}
-    </>
+
+      <div className="ml-auto">
+        <ThemeSwitcher />
+      </div>
+    </div>
   );
 }
