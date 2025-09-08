@@ -28,7 +28,7 @@ export function BlogPostLayout({
           <h1 className="mt-6 text-balance text-4xl font-bold">{title}</h1>
           <div className="mt-12 flex items-center space-x-4">
             <Image
-              src="/tusar.jpeg"
+              src="/images/blog/tusar.jpeg"
               alt={`Avatar of ${author}`}
               width={48}
               height={48}
