@@ -24,7 +24,7 @@ export function BlogSearch({ className }: { className?: string }) {
         <Input
           type="search"
           placeholder="Search posts..."
-          className="col-start-1 row-start-1 h-10 rounded-full pl-10"
+          className="bg-background col-start-1 row-start-1 h-10 rounded-full pl-10"
           defaultValue={search}
           onChange={(e) => handleSearch(e.target.value)}
         />

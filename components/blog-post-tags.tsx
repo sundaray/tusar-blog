@@ -13,7 +13,7 @@ export function BlogPostTags({ tags }: { tags: string[] }) {
       {(item) => (
         <BlogTag
           id={item.id}
-          href={`/?tag=${slugify(item.id)}`}
+          href={`/blog?tag=${slugify(item.id)}`}
           className="hover:bg-primary hover:text-primary-foreground dark:hover:bg-foreground dark:hover:text-background cursor-pointer transition-colors"
         >
           {item.name}

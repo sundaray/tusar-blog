@@ -1,5 +1,4 @@
 import { BlogActions } from "@/components/blog-actions";
-import { FilteredPostList } from "@/components/filtered-post-list";
 import { getAllPosts } from "@/lib/blog";
 
 export default async function BlogPage() {
@@ -7,14 +6,14 @@ export default async function BlogPage() {
 
   return (
     <section className="mx-auto max-w-3xl px-4 py-36">
-      <h1 className="mb-4 text-4xl font-bold">Blog</h1>
-      <p className="mb-8 text-lg">
-        Posts on AUTOSAR, Embedded Systsems & C/C++
-      </p>
+      <div>
+        <h1 className="text-4xl font-bold">Blog</h1>
+        <p className="mt-4 text-lg">
+          Posts on AUTOSAR, Embedded Systsems & C/C++
+        </p>
+      </div>
 
-      <BlogActions />
-
-      <FilteredPostList allPosts={allPosts} className="mt-12" />
+      <BlogActions allPosts={allPosts} className="mt-12" />
     </section>
   );
 }
