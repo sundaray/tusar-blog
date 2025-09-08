@@ -2,6 +2,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { TagsList } from "@/components/tags-list";
 import { TagsSearch } from "@/components/tags-search";
 import { getAllTags } from "@/lib/blog";
+import { Suspense } from "react";
 
 export default async function TagsPage() {
   const allTags = getAllTags();
@@ -14,9 +15,11 @@ export default async function TagsPage() {
         Select a tag to view all related blog posts.
       </p>
 
-      <TagsSearch className="mt-12" />
+      <Suspense>
+        <TagsSearch className="mt-12" />
 
-      <TagsList allTags={allTags} className="mt-12" />
+        <TagsList allTags={allTags} className="mt-12" />
+      </Suspense>
     </section>
   );
 }
