@@ -101,7 +101,9 @@ function MenuDrawer({ onLinkClick }: { onLinkClick: () => void }) {
     open: {
       opacity: 1,
       transition: {
-        when: "beforeChildren",
+        transition: {
+          staggerChildren: 0.05,
+        },
       },
     },
   } as const;
@@ -126,10 +128,13 @@ function MenuDrawer({ onLinkClick }: { onLinkClick: () => void }) {
       aria-modal="true"
     >
       <nav className="h-full">
-        {/* center items both vertically and horizontally */}
-        <motion.ul className="flex h-full flex-col items-center justify-center space-y-4">
+        <motion.ul className="divide-y-1 divide-border flex h-full flex-col items-center divide-dashed">
           {items.map((item) => (
-            <motion.li key={item.href} variants={itemVariants}>
+            <motion.li
+              key={item.href}
+              variants={itemVariants}
+              className="w-full"
+            >
               <MobileNavLink href={item.href} onClick={onLinkClick}>
                 {item.title}
               </MobileNavLink>
@@ -161,7 +166,7 @@ function MobileNavLink({
       href={href}
       onClick={onClick}
       className={cn(
-        "block w-full rounded-md py-2 text-lg font-medium transition-colors",
+        "block w-full rounded-md py-2 text-center text-lg font-medium transition-colors",
         isActive
           ? "text-foreground font-semibold"
           : "text-tertiary-foreground hover:text-foreground",
