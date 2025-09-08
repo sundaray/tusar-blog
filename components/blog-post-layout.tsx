@@ -1,5 +1,5 @@
-import { AnimatedLink } from "@/components/animated-link";
 import { BlogPostTags } from "@/components/blog-post-tags";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { TableOfContents } from "@/components/toc";
 import { type TableOfContents as TOCType } from "@/lib/toc";
 import { Frontmatter } from "@/types";
@@ -24,10 +24,8 @@ export function BlogPostLayout({
     <div className="lg:grid-cols-16 mx-auto max-w-5xl px-4 py-36 lg:grid">
       <article className="col-end-17 col-start-1 lg:col-start-1 lg:col-end-13">
         <header className="flex flex-col items-center">
-          <AnimatedLink href="/blog" className="mb-6">
-            Back to blog
-          </AnimatedLink>
-          <h1 className="text-balance text-4xl font-bold">{title}</h1>
+          <Breadcrumbs />
+          <h1 className="mt-6 text-balance text-4xl font-bold">{title}</h1>
           <div className="mt-12 flex items-center space-x-4">
             <Image
               src="/tusar.jpeg"

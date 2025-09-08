@@ -93,7 +93,7 @@ export function TableOfContents({ toc }: TocProps) {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       <p className="flex items-center gap-2">
         <Icons.toc className="text-muted-foreground size-4" />
         <span className="text-foreground font-medium">On this page</span>
