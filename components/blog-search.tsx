@@ -3,11 +3,12 @@
 import { Icons } from "@/components/icons";
 import { Input } from "@/components/ui/input";
 import { blogSearchParams } from "@/lib/blog-search-params";
+import { cn } from "@/lib/utils";
 import { useQueryState } from "nuqs";
 import * as React from "react";
 import { useDebouncedCallback } from "use-debounce";
 
-export function BlogSearch() {
+export function BlogSearch({ className }: { className?: string }) {
   const [search, setSearch] = useQueryState("search", blogSearchParams.search);
   const [isPending, startTransition] = React.useTransition();
 
@@ -18,7 +19,7 @@ export function BlogSearch() {
   }, 300);
 
   return (
-    <div className="relative">
+    <div className={cn("relative", className)}>
       <div className="grid w-full grid-cols-1 items-center">
         <Input
           type="search"

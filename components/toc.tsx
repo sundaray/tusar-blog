@@ -96,7 +96,7 @@ export function TableOfContents({ toc }: TocProps) {
     <div className="space-y-2">
       <p className="flex items-center gap-2">
         <Icons.toc className="text-muted-foreground size-4" />
-        <span>On this page</span>
+        <span className="text-foreground font-medium">On this page</span>
       </p>
       <div ref={containerRef} className="relative border-l pl-4">
         {indicator.visible && (

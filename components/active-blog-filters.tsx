@@ -2,10 +2,11 @@
 
 import { BlogTag, BlogTagGroup } from "@/components/blog-tag";
 import { blogSearchParams } from "@/lib/blog-search-params";
+import { cn } from "@/lib/utils";
 import { useQueryStates } from "nuqs";
 import React from "react";
 
-export function ActiveBlogFilters() {
+export function ActiveBlogFilters({ className }: { className?: string }) {
   const [filters, setFilters] = useQueryStates(blogSearchParams);
 
   const activeFilters = React.useMemo(() => {
@@ -26,7 +27,7 @@ export function ActiveBlogFilters() {
   return (
     <BlogTagGroup
       label="Active filters:"
-      className="flex items-center gap-2"
+      className={cn("flex items-center gap-2 text-sm", className)}
       onRemove={(keys) => {
         const filtersToClear = Object.fromEntries(
           Array.from(keys).map((key) => [key, null]),
@@ -35,7 +36,7 @@ export function ActiveBlogFilters() {
       }}
     >
       {activeFilters.map((filter) => (
-        <BlogTag key={filter.type} id={filter.type} allowsRemoving>
+        <BlogTag key={filter.type} id={filter.type} className="px-2 py-1">
           {filter.value}
         </BlogTag>
       ))}

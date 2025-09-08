@@ -1,9 +1,25 @@
 "use client";
-
-import { BlogTag, BlogTagGroup } from "@/components/blog-tag"; // 1. Import the components
-import { slugify } from "@/lib/utils";
+import { BlogTag, BlogTagGroup } from "@/components/blog-tag";
+import { cn, slugify } from "@/lib/utils";
+import { AnimatePresence, motion } from "motion/react";
 import { useQueryState } from "nuqs";
 import * as React from "react";
+
+const listVariants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut",
+    },
+  },
+  hidden: {
+    opacity: 0,
+    y: 4,
+  },
+} as const;
+
 type Tag = {
   name: string;
   count: number;
@@ -11,9 +27,10 @@ type Tag = {
 
 type TagsListProps = {
   allTags: Tag[];
+  className?: string;
 };
 
-export function TagsList({ allTags }: TagsListProps) {
+export function TagsList({ allTags, className }: TagsListProps) {
   const [search] = useQueryState("search", { defaultValue: "" });
 
   const groupedTags = React.useMemo(() => {
@@ -37,33 +54,58 @@ export function TagsList({ allTags }: TagsListProps) {
     );
   }, [allTags, search]);
 
-  return (
-    <div className="mt-12 flex flex-col space-y-8">
-      {Object.keys(groupedTags).map((letter) => (
-        <div key={letter}>
-          <h2 className="text-2xl font-bold">{letter}</h2>
-          <hr className="my-4" />
+  const hasResults = Object.keys(groupedTags).length > 0;
 
-          <BlogTagGroup
-            aria-label={`Tags starting with ${letter}`}
-            items={groupedTags[letter]}
-            className="flex flex-wrap gap-2"
+  return (
+    <div className={cn("flex flex-col", className)}>
+      <AnimatePresence mode="wait" initial={false}>
+        {hasResults ? (
+          <motion.div
+            key="tags-list"
+            variants={listVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="flex flex-col space-y-8"
           >
-            {(tag) => (
-              <BlogTag
-                id={tag.name}
-                href={`/blog?tag=${slugify(tag.name)}`}
-                className="cursor-pointer"
-              >
-                <span className="mr-2">{tag.name}</span>
-                <span className="text-muted-foreground text-xs">
-                  {tag.count}
-                </span>
-              </BlogTag>
-            )}
-          </BlogTagGroup>
-        </div>
-      ))}
+            {Object.keys(groupedTags).map((letter) => (
+              <div key={letter}>
+                <h2 className="text-2xl font-bold">{letter}</h2>
+                <hr className="my-4" />
+                <BlogTagGroup
+                  aria-label={`Tags starting with ${letter}`}
+                  items={groupedTags[letter]}
+                  className="flex flex-wrap gap-2"
+                >
+                  {(tag) => (
+                    <BlogTag
+                      id={tag.name}
+                      href={`/blog?tag=${slugify(tag.name)}`}
+                      className="hover:bg-primary hover:text-primary-foreground dark:hover:bg-foreground dark:hover:text-background cursor-pointer transition-colors"
+                    >
+                      <span className="mr-2">{tag.name}</span>
+                      <span className="text-muted-foreground font-mono text-xs">
+                        {tag.count}
+                      </span>
+                    </BlogTag>
+                  )}
+                </BlogTagGroup>
+              </div>
+            ))}
+          </motion.div>
+        ) : (
+          <motion.p
+            key="no-tags-found"
+            variants={listVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="text-tertiary-foreground mt-12 text-center"
+          >
+            No tags found.
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

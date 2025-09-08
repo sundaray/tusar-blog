@@ -7,11 +7,14 @@ export default async function TagsPage() {
 
   return (
     <section className="mx-auto max-w-3xl px-4 py-36">
-      <h1 className="mb-8 text-4xl font-bold">Tags</h1>
+      <h1 className="text-4xl font-bold">Tags</h1>
+      <p className="mt-6 text-lg">
+        Select a tag to view all related blog posts.
+      </p>
 
-      <TagsSearch />
+      <TagsSearch className="mt-12" />
 
-      <TagsList allTags={allTags} />
+      <TagsList allTags={allTags} className="mt-12" />
     </section>
   );
 }
