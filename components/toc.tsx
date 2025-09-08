@@ -37,15 +37,18 @@ export function TableOfContents({ toc }: TocProps) {
     const containerElement = containerRef.current;
     if (!containerElement) return;
     const updateBorderWidth = () => {
-      const bw = parseFloat(
+      const borderWidth = parseFloat(
         getComputedStyle(containerElement).borderLeftWidth || "1",
       );
-      setIndicator((prev) => ({ ...prev, borderWidth: isNaN(bw) ? 1 : bw }));
+      setIndicator((prev) => ({
+        ...prev,
+        borderWidth: isNaN(borderWidth) ? 1 : borderWidth,
+      }));
     };
     updateBorderWidth();
-    const ro = new ResizeObserver(updateBorderWidth);
-    ro.observe(containerElement);
-    return () => ro.disconnect();
+    const resizeObserver = new ResizeObserver(updateBorderWidth);
+    resizeObserver.observe(containerElement);
+    return () => resizeObserver.disconnect();
   }, []);
 
   React.useLayoutEffect(() => {
@@ -54,8 +57,8 @@ export function TableOfContents({ toc }: TocProps) {
       setIndicator((prev) => ({ ...prev, visible: false }));
       return;
     }
-    const esc = (s: string) =>
-      (window as any).CSS?.escape ? (window as any).CSS.escape(s) : s;
+    const esc = (str: string) =>
+      (window as any).CSS?.escape ? (window as any).CSS.escape(str) : str;
     const selector = `a[href="#${esc(activeHeading)}"]`;
     const linkElement =
       containerElement.querySelector<HTMLAnchorElement>(selector);
@@ -95,7 +98,7 @@ export function TableOfContents({ toc }: TocProps) {
         <Icons.toc className="text-muted-foreground size-4" />
         <span>On this page</span>
       </p>
-      <div ref={containerRef} className="border-border relative border-l pl-4">
+      <div ref={containerRef} className="relative border-l pl-4">
         {indicator.visible && (
           <span
             aria-hidden

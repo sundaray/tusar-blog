@@ -6,6 +6,27 @@ import { getTableOfContents } from "./toc";
 
 const postsDirectory = path.join(process.cwd(), "app/(posts)");
 
+export function getAllTags() {
+  const allPosts = getAllPosts();
+
+  const tagCounts: Record<string, number> = {};
+
+  allPosts.forEach((post) => {
+    post.tags?.forEach((tag) => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+  const allTags = Object.keys(tagCounts)
+    .map((tag) => ({
+      name: tag,
+      count: tagCounts[tag],
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  return allTags;
+}
+
 export function getAllPosts() {
   const slugs = fs.readdirSync(postsDirectory);
 
