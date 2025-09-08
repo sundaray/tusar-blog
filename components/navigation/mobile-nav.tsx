@@ -55,7 +55,7 @@ function MenuIcon({
         initial={false}
         animate={isOpen ? "open" : "closed"}
         onClick={onToggle}
-        className="relative z-50 flex size-8 items-center justify-center rounded-full transition-colors hover:bg-neutral-100"
+        className="hover:bg-accent relative z-50 flex size-8 items-center justify-center rounded-full transition-colors"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         <div className="size-4.5 relative flex items-center justify-center rounded-full">
@@ -67,21 +67,21 @@ function MenuIcon({
                 closed: { y: "-50%", top: "25%", rotate: 0 },
                 open: { y: "-50%", top: "50%", rotate: 45 },
               }}
-              className="absolute h-[1.5px] w-full rounded-full bg-neutral-700"
+              className="bg-tertiary-foreground absolute h-[1.5px] w-full rounded-full"
             />
             <motion.div
               variants={{
                 closed: { opacity: 1 },
                 open: { opacity: 0 },
               }}
-              className="absolute top-1/2 h-[1.5px] w-full -translate-y-1/2 rounded-full bg-neutral-700"
+              className="bg-tertiary-foreground absolute top-1/2 h-[1.5px] w-full -translate-y-1/2 rounded-full"
             />
             <motion.div
               variants={{
                 closed: { y: "50%", bottom: "25%", rotate: 0 },
                 open: { y: "50%", bottom: "50%", rotate: -45 },
               }}
-              className="absolute h-[1.5px] w-full rounded-full bg-neutral-700"
+              className="bg-tertiary-foreground absolute h-[1.5px] w-full rounded-full"
             />
           </div>
         </div>
@@ -121,8 +121,7 @@ function MenuDrawer({ onLinkClick }: { onLinkClick: () => void }) {
       animate="open"
       exit="closed"
       variants={drawerVariants}
-      // top: 5rem (h-20) so drawer sits below main nav; height = calc(100vh - 5rem)
-      className="fixed left-0 right-0 top-20 z-40 h-[calc(100vh-5rem)] w-full bg-neutral-50 p-6"
+      className="bg-background fixed left-0 right-0 top-20 z-40 h-[calc(100vh-5rem)] w-full border-t p-6"
       role="dialog"
       aria-modal="true"
     >
@@ -162,11 +161,10 @@ function MobileNavLink({
       href={href}
       onClick={onClick}
       className={cn(
-        // centered size and weight per your request
         "block w-full rounded-md py-2 text-lg font-medium transition-colors",
         isActive
-          ? "font-semibold text-neutral-900"
-          : "text-neutral-700 hover:text-neutral-900",
+          ? "text-foreground font-semibold"
+          : "text-tertiary-foreground hover:text-foreground",
       )}
     >
       {children}
