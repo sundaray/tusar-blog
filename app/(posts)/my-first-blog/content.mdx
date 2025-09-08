@@ -4,6 +4,7 @@ description: "This is a short description for my very first blog post."
 author: "Tusarkanta Palauri"
 publishedAt: "2025-09-05"
 tags: ["Next.js", "Remark", "MDX", "Markdown"]
+isPublished: false
 ---
 
 import { BlogImage } from "@/components/blog-image";
@@ -12,7 +13,7 @@ Welcome to my first blog. The [frontmatter](/about) is now being displayed by ou
 
 The rest of your markdown content goes here, and it will be passed as `children` to the layout.
 
-```tsx title="app/components/my-component.tsx" showLineNumbers {4}
+```jsx title="app/components/my-component.tsx" {4-6}
 import React from "react";
 
 export default function MyComponent() {
@@ -27,9 +28,8 @@ You’ve been assigned an essay and the [anxiety](https://google.com) are clear:
 <BlogImage
   src="/images/blog/airpods.jpeg"
   alt="A pair of Apple AirPods Pro on a clean background"
-  width={300}
+  width={100}
   height={50}
-  caption="The latest Apple AirPods Pro with the new charging case."
 />
 
 ## Using Effect Error Handling

@@ -43,10 +43,10 @@ pre.shiki {
 .dark pre.shiki {
   background-color: var(--shiki-dark-bg);
 }
-code[data-theme*=" "] span {
+code[data-theme] span {
   color: var(--shiki-light);
 }
-.dark code[data-theme*=" "] span {
+.dark code[data-theme] span {
   color: var(--shiki-dark);
 }
 
