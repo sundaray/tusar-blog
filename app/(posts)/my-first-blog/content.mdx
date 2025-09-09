@@ -17,13 +17,18 @@ Welcome to my first blog. The [frontmatter](/about) is now being displayed by ou
 
 The rest of your markdown content goes here, and it will be passed as `children` to the layout.
 
-```jsx title="app/components/my-component.tsx" {4-6}
-import React from "react";
+```cpp title="age_checker.cpp" showLineNumbers
+#include <iostream>
 
-export default function MyComponent() {
-  // This is a comment
-  const message = "Hello, Shiki!";
-  return <div>{message}</div>;
+int main() {
+    int age;
+
+    std::cout << "Please enter your age: ";
+    std::cin >> age;
+
+    std::cout << "You are " << age << " years old." << std::endl;
+
+    return 0;
 }
 ```
 

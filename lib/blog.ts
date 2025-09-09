@@ -40,16 +40,30 @@ export function getAllPosts() {
     };
   });
 
-  return allPosts.sort((a, b) =>
-    new Date(a.publishedAt) > new Date(b.publishedAt) ? -1 : 1,
-  );
+  return allPosts
+    .sort((a, b) =>
+      new Date(a.publishedAt) > new Date(b.publishedAt) ? -1 : 1,
+    )
+    .filter((post) => post.isPublished);
 }
 
 export function getAllPostSlugs() {
   const slugs = fs.readdirSync(postsDirectory);
-  return slugs.map((slug) => ({ slug }));
-}
+  const publishedSlugs = slugs
+    .map((slug) => {
+      const fullPath = path.join(postsDirectory, slug, "content.mdx");
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data } = matter(fileContents);
+      return {
+        slug,
+        isPublished: (data as Frontmatter).isPublished,
+      };
+    })
+    .filter((post) => post.isPublished)
+    .map((post) => ({ slug: post.slug }));
 
+  return publishedSlugs;
+}
 export async function getPostBySlug(slug: string) {
   const fullPath = path.join(postsDirectory, slug, "content.mdx");
   const fileContents = fs.readFileSync(fullPath, "utf8");
