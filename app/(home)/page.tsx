@@ -1,4 +1,9 @@
 import { BlogImage } from "@/components/blog-image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tusarkanta Palauri",
+};
 
 export default function HomePage() {
   return (

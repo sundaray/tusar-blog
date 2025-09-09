@@ -5,16 +5,12 @@ import { cn } from "@/lib/utils";
 import Link, { type LinkProps } from "next/link";
 import React from "react";
 
-interface ReadMoreLinkProps extends Omit<LinkProps, "children"> {
+interface ArrowLinkProps extends Omit<LinkProps, "children"> {
   children: React.ReactNode;
   className?: string;
 }
 
-export function ReadMoreLink({
-  children,
-  className,
-  ...props
-}: ReadMoreLinkProps) {
+export function ArrowLink({ children, className, ...props }: ArrowLinkProps) {
   const classes = cn(
     "group relative inline-flex items-center gap-2 rounded-md py-2 text-sm font-medium",
     "link-focus focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",

@@ -1,7 +1,12 @@
 import { BlogActions } from "@/components/blog-actions";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { getAllPosts } from "@/lib/blog";
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Blog | tusarpalauri.com",
+};
 
 export default async function BlogPage() {
   const allPosts = getAllPosts();

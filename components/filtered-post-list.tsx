@@ -1,6 +1,6 @@
 "use client";
 
-import { ReadMoreLink } from "@/components/read-more-link";
+import { ArrowLink } from "@/components/arrow-link";
 import { cn } from "@/lib/utils";
 import { Frontmatter } from "@/types";
 import { format } from "date-fns";
@@ -56,12 +56,12 @@ export function FilteredPostList({
             </p>
 
             <footer className="mt-4">
-              <ReadMoreLink
+              <ArrowLink
                 href={`/blog/${post.slug}`}
                 aria-label={`Read more about ${post.title}`}
               >
                 Read more
-              </ReadMoreLink>
+              </ArrowLink>
             </footer>
           </article>
         </li>

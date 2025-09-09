@@ -2,7 +2,12 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { TagsList } from "@/components/tags-list";
 import { TagsSearch } from "@/components/tags-search";
 import { getAllTags } from "@/lib/blog";
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Tags | tusarpalauri.com",
+};
 
 export default async function TagsPage() {
   const allTags = getAllTags();
@@ -17,7 +22,6 @@ export default async function TagsPage() {
 
       <Suspense>
         <TagsSearch className="mt-12" />
-
         <TagsList allTags={allTags} className="mt-12" />
       </Suspense>
     </section>
