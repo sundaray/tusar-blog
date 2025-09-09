@@ -17,7 +17,7 @@ export function ReadMoreLink({
 }: ReadMoreLinkProps) {
   const classes = cn(
     "group relative inline-flex items-center gap-2 rounded-md py-2 text-sm font-medium",
-    "focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
+    "link-focus focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
     className,
   );
 

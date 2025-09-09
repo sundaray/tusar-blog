@@ -190,6 +190,10 @@ code[data-theme] span {
 }
 
 @layer components {
+  .link-focus {
+    @apply dark:focus-visible:ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2;
+  }
+
   .blog-post h1 {
     @apply text-4xl;
   }

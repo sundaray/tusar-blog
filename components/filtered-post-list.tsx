@@ -42,7 +42,10 @@ export function FilteredPostList({
               </time>
 
               <h2 className="mt-2 text-2xl font-bold hover:text-sky-600 dark:hover:text-sky-400">
-                <Link href={`/blog/${post.slug}`} className="inline-block">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="link-focus inline-block"
+                >
                   {post.title}
                 </Link>
               </h2>

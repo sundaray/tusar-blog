@@ -15,7 +15,7 @@ export async function MainNav({ items }: MainNavProps) {
         <Link
           href="/"
           aria-label="Go to homepage"
-          className="hidden items-center font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 md:inline-flex"
+          className="link-focus hidden items-center font-bold tracking-tight md:inline-flex"
         >
           Tusarkanta Palauri
         </Link>
@@ -23,7 +23,7 @@ export async function MainNav({ items }: MainNavProps) {
         <Link
           href="/"
           aria-label="Go to homepage"
-          className="inline-flex items-center font-bold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2 md:hidden"
+          className="link-focus inline-flex items-center font-bold tracking-tight md:hidden"
         >
           TP
         </Link>

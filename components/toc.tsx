@@ -169,7 +169,7 @@ function Tree({
             <a
               href={item.url}
               className={cn(
-                "hover:text-foreground inline-block text-sm transition-colors",
+                "hover:text-foreground link-focus inline-block text-sm transition-colors",
                 item.url === `#${activeItem}`
                   ? "text-foreground"
                   : "text-muted-foreground",
