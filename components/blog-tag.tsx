@@ -36,7 +36,7 @@ function BlogTag({ children, className, ref, ...props }: BlogTagProps) {
           {allowsRemoving && (
             <Button
               slot="remove"
-              className="text-muted-foreground group h-auto cursor-pointer rounded-full p-1 transition-colors data-[hovered]:bg-neutral-300/50 data-[hovered]:text-neutral-700"
+              className="text-muted-foreground group h-auto cursor-pointer rounded-full p-1 transition-colors data-[hovered]:bg-neutral-300/60 data-[hovered]:text-neutral-700 dark:data-[hovered]:bg-neutral-700 dark:data-[hovered]:text-neutral-200"
             >
               <Icons.x className="size-4" />
             </Button>
