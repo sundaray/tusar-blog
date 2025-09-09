@@ -211,7 +211,7 @@ code[data-theme] span {
   }
 
   .blog-post p a {
-    @apply text-sky-600 underline underline-offset-2 dark:text-sky-300;
+    @apply text-sky-700 underline underline-offset-2 dark:text-sky-300;
   }
 
   .blog-post ul,
@@ -222,7 +222,6 @@ code[data-theme] span {
   .blog-post ul {
     @apply list-disc;
   }
-
   .blog-post ol {
     @apply list-decimal;
   }
@@ -256,7 +255,6 @@ input {
   -webkit-appearance: none;
 }
 
-/* Search input cancel button styles */
 input[type="search"]::-webkit-search-cancel-button {
   @apply pointer-events-none absolute right-3 top-1/2 size-6 -translate-y-1/2 opacity-0;
   -webkit-appearance: none;
