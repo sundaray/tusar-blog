@@ -8,10 +8,13 @@ import { useQueryStates } from "nuqs";
 import React from "react";
 import { ActiveBlogFilters } from "./active-blog-filters";
 import { BlogFilterSummary } from "./blog-filter-summary";
+import { BlogPagination } from "./blog-pagination";
 import { BlogSearch } from "./blog-search";
 import { FilteredPostList } from "./filtered-post-list";
 
 type Post = { slug: string } & Frontmatter;
+
+const POSTS_PER_PAGE = 10;
 
 export function BlogActions({
   allPosts,
@@ -39,6 +42,18 @@ export function BlogActions({
     }
     return posts;
   }, [allPosts, filters]);
+
+  // Calculate total pages based on the filtered posts
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+
+  // Get the current page from filters, ensuring it's within valid bounds
+  const currentPage = Math.max(1, Math.min(filters.page, totalPages));
+
+  // Slice the posts to get only the items for the current page
+  const paginatedPosts = filteredPosts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE,
+  );
 
   return (
     <div className={className}>
@@ -72,7 +87,11 @@ export function BlogActions({
         </div>
       </LayoutGroup>
 
-      <FilteredPostList filteredPosts={filteredPosts} className="mt-12" />
+      <FilteredPostList filteredPosts={paginatedPosts} className="mt-12" />
+
+      {paginatedPosts.length > 0 && (
+        <BlogPagination totalPages={totalPages} className="mt-12" />
+      )}
     </div>
   );
 }

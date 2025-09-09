@@ -15,21 +15,25 @@ export function FilteredPostList({
   filteredPosts: Post[];
   className?: string;
 }) {
-  const hasResults = filteredPosts.length > 0;
+  if (filteredPosts.length === 0) {
+    return (
+      <p className="text-tertiary-foreground mt-12 text-center">
+        No blog posts found.
+      </p>
+    );
+  }
 
   return (
-    <div className={cn("flex flex-col", className)}>
-      {hasResults ? (
-        <div className="flex flex-col space-y-12">
-          {filteredPosts.map((post) => (
-            <article
-              key={post.slug}
-              className="group relative rounded-lg p-4 transition-all hover:bg-neutral-100 dark:hover:bg-neutral-900"
-            >
-              <Link href={`/blog/${post.slug}`} className="absolute inset-0">
-                <span className="sr-only">Read {post.title}</span>
-              </Link>
-
+    <ul
+      className={cn(
+        "divide-border divide-y-1 flex flex-col divide-dashed",
+        className,
+      )}
+    >
+      {filteredPosts.map((post) => (
+        <li key={post.slug} className="py-6">
+          <article key={post.slug}>
+            <header>
               <time
                 dateTime={post.publishedAt}
                 className="text-muted-foreground font-mono text-sm"
@@ -37,25 +41,28 @@ export function FilteredPostList({
                 {format(new Date(post.publishedAt), "LLL d, yyyy")}
               </time>
 
-              <h2 className="mt-2 text-2xl font-bold group-hover:text-sky-600 dark:group-hover:text-sky-400">
-                {post.title}
+              <h2 className="mt-2 text-2xl font-bold hover:text-sky-600 dark:hover:text-sky-400">
+                <Link href={`/blog/${post.slug}`} className="inline-block">
+                  {post.title}
+                </Link>
               </h2>
+            </header>
 
-              <p className="text-tertiary-foreground mt-4 line-clamp-2">
-                {post.description}
-              </p>
+            <p className="text-tertiary-foreground mt-4 line-clamp-2">
+              {post.description}
+            </p>
 
-              <div className="mt-4">
-                <ReadMoreLink>Read more</ReadMoreLink>
-              </div>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <p className="text-tertiary-foreground mt-12 text-center">
-          No blog posts found.
-        </p>
-      )}
-    </div>
+            <footer className="mt-4">
+              <ReadMoreLink
+                href={`/blog/${post.slug}`}
+                aria-label={`Read more about ${post.title}`}
+              >
+                Read more
+              </ReadMoreLink>
+            </footer>
+          </article>
+        </li>
+      ))}
+    </ul>
   );
 }

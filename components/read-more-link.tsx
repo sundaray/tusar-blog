@@ -1,15 +1,30 @@
+"use client";
+
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import Link, { type LinkProps } from "next/link";
 import React from "react";
 
-export function ReadMoreLink({ children }: { children: React.ReactNode }) {
+interface ReadMoreLinkProps extends Omit<LinkProps, "children"> {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function ReadMoreLink({
+  children,
+  className,
+  ...props
+}: ReadMoreLinkProps) {
+  const classes = cn(
+    "group relative inline-flex items-center gap-2 rounded-md py-2 text-sm font-medium",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
+    className,
+  );
+
   return (
-    <div
-      className={cn(
-        "group relative inline-flex items-center gap-1 text-sm font-medium",
-      )}
-    >
+    <Link className={classes} {...(props as LinkProps)}>
       <span>{children}</span>
+
       <div className="relative size-4">
         <Icons.chevronRight
           className={cn(
@@ -24,6 +39,6 @@ export function ReadMoreLink({ children }: { children: React.ReactNode }) {
           )}
         />
       </div>
-    </div>
+    </Link>
   );
 }
