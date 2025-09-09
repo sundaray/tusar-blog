@@ -75,7 +75,14 @@ export function BlogActions({
             )}
           </AnimatePresence>
 
-          <motion.div key="search" layout>
+          <motion.div
+            key="search"
+            layout
+            transition={{
+              ease: "easeOut",
+              layout: { duration: 0.2 },
+            }}
+          >
             <BlogSearch />
           </motion.div>
           {hasActiveFilters && filteredPosts.length > 0 && (
