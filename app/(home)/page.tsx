@@ -16,7 +16,7 @@ export default function HomePage() {
           height={400}
         />
       </div>
-      <p className="text-tertiary-foreground mt-4 text-lg">
+      <p className="text-tertiary-foreground mt-12 text-lg">
         Hello world! I am Tusarkanta Palauri.
       </p>
     </section>

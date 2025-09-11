@@ -41,7 +41,7 @@ export function FilteredPostList({
                 {format(new Date(post.publishedAt), "LLL d, yyyy")}
               </time>
 
-              <h2 className="mt-2 text-2xl font-bold hover:text-sky-600 dark:hover:text-sky-400">
+              <h2 className="mt-2 text-2xl font-bold hover:text-sky-700 dark:hover:text-sky-400">
                 <Link
                   href={`/blog/${post.slug}`}
                   className="link-focus inline-block"
@@ -59,8 +59,9 @@ export function FilteredPostList({
               <ArrowLink
                 href={`/blog/${post.slug}`}
                 aria-label={`Read more about ${post.title}`}
+                className="text-sky-700 dark:text-sky-400"
               >
-                Read more
+                Read More
               </ArrowLink>
             </footer>
           </article>

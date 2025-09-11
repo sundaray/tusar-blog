@@ -8,7 +8,9 @@ export default function NotFound() {
         Sorry, we couldn't find the page you were looking for.
       </p>
       <div className="mt-8 flex justify-center">
-        <ArrowLink href="/">Return Home</ArrowLink>
+        <ArrowLink href="/" className="text-sky-700 dark:text-sky-400">
+          Return Home
+        </ArrowLink>
       </div>
     </section>
   );

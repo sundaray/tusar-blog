@@ -211,7 +211,7 @@ code[data-theme] span {
   }
 
   .blog-post p a {
-    @apply text-sky-700 underline underline-offset-2 dark:text-sky-300;
+    @apply text-sky-700 underline underline-offset-4 dark:text-sky-300;
   }
 
   .blog-post ul,

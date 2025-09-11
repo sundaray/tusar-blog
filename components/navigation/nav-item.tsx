@@ -16,7 +16,7 @@ export function NavItem({ href, title }: NavItemType) {
         "text-tertiary-foreground dark:text-muted-foreground dark:hover:text-muted-foreground hover:text-tertiary-foreground link-focus relative py-2 text-sm transition-colors",
 
         // Pseudo-element for the underline
-        "after:bg-foreground dark:after:bg-muted-foreground after:absolute after:bottom-1.5 after:left-0 after:h-[1.2px] after:w-0 after:transition-all after:duration-200 after:ease-out after:content-['']",
+        "after:bg-foreground dark:after:bg-muted-foreground after:absolute after:bottom-1 after:left-0 after:h-[1.2px] after:w-0 after:transition-all after:duration-200 after:ease-out after:content-['']",
 
         // Hover state for the pseudo-element
         !isActive && "hover:after:w-full",
