@@ -16,7 +16,7 @@ export default async function BlogPage() {
       <div>
         <Breadcrumbs />
         <h1 className="mt-6 text-4xl font-bold">Blog</h1>
-        <p className="mt-4 text-lg">
+        <p className="mt-4 text-lg font-medium">
           Posts on AUTOSAR, Embedded Systsems & C/C++
         </p>
       </div>

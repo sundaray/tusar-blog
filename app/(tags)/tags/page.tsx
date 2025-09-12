@@ -16,7 +16,7 @@ export default async function TagsPage() {
     <section className="mx-auto max-w-3xl px-4 py-36">
       <Breadcrumbs />
       <h1 className="mt-6 text-4xl font-bold">Tags</h1>
-      <p className="mt-6 text-lg">
+      <p className="mt-6 text-lg font-medium">
         Select a tag to view all related blog posts.
       </p>
 

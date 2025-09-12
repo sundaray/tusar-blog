@@ -21,7 +21,7 @@ export function BlogPostLayout({
   const { title, publishedAt, author, tags } = frontmatter;
 
   return (
-    <div className="lg:grid-cols-16 mx-auto max-w-5xl px-4 py-36 lg:grid">
+    <div className="lg:grid-cols-16 mx-auto max-w-6xl px-4 py-36 lg:grid">
       <article className="col-end-17 col-start-1 lg:col-start-1 lg:col-end-13">
         <header className="flex flex-col items-center">
           <Breadcrumbs />
@@ -35,7 +35,7 @@ export function BlogPostLayout({
               className="size-10 rounded-full object-cover"
             />
             <div>
-              <p className="text-sm">{author}</p>
+              <p className="text-sm font-medium">{author}</p>
               <p className="text-muted-foreground text-sm">
                 Published{" "}
                 <time dateTime={publishedAt}>
