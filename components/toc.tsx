@@ -11,21 +11,35 @@ interface TocProps {
 }
 
 export function TableOfContents({ toc }: TocProps) {
-  const itemIds = React.useMemo(
-    () =>
-      toc?.items
-        ? toc.items
-            .flatMap((item) => [item.url, item?.items?.map((item) => item.url)])
-            .flat()
-            .filter(Boolean)
-            .map((id) => id?.split("#")[1])
-        : [],
-    [toc],
-  ) as string[];
+  const { itemIds, parentMap, topLevel } = React.useMemo(() => {
+    const ids: string[] = [];
+    const map: Record<string, string> = {};
+    const top: { title: string; url: string; items?: any[] }[] = [];
+
+    if (!toc?.items) return { itemIds: ids, parentMap: map, topLevel: top };
+
+    toc.items.forEach((h2) => {
+      top.push(h2);
+      const h2Id = h2.url?.split("#")[1];
+      if (h2Id) ids.push(h2Id);
+
+      if (h2.items && Array.isArray(h2.items)) {
+        h2.items.forEach((h3) => {
+          const h3Id = h3.url?.split("#")[1];
+          if (h3Id) {
+            ids.push(h3Id);
+            if (h2Id) map[h3Id] = h2Id;
+          }
+        });
+      }
+    });
+
+    return { itemIds: ids, parentMap: map, topLevel: top };
+  }, [toc]);
 
   const activeHeading = useActiveItem(itemIds);
   const mounted = useMounted();
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
   const [indicator, setIndicator] = React.useState({
     top: 0,
     height: 0,
@@ -57,6 +71,7 @@ export function TableOfContents({ toc }: TocProps) {
       setIndicator((prev) => ({ ...prev, visible: false }));
       return;
     }
+
     const esc = (str: string) =>
       (window as any).CSS?.escape ? (window as any).CSS.escape(str) : str;
     const selector = `a[href="#${esc(activeHeading)}"]`;
@@ -66,7 +81,18 @@ export function TableOfContents({ toc }: TocProps) {
       setIndicator((prev) => ({ ...prev, visible: false }));
       return;
     }
+
+    let rafId: number | null = null;
+    const scheduleUpdate = () => {
+      if (rafId != null) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        updatePosition();
+      });
+    };
+
     const updatePosition = () => {
+      if (!containerElement || !linkElement) return;
       const containerRect = containerElement.getBoundingClientRect();
       const linkRect = linkElement.getBoundingClientRect();
       const top = linkRect.top - containerRect.top;
@@ -78,19 +104,64 @@ export function TableOfContents({ toc }: TocProps) {
         visible: height > 0,
       }));
     };
-    updatePosition();
-    const ro = new ResizeObserver(updatePosition);
-    ro.observe(linkElement);
-    window.addEventListener("resize", updatePosition);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [activeHeading, toc]);
 
-  if (!mounted || !toc?.items) {
-    return null;
-  }
+    // run once now
+    updatePosition();
+
+    // resize observer for the link (already had in your original) — keeps size-driven changes in sync
+    const linkResizeObserver = new ResizeObserver(scheduleUpdate);
+    linkResizeObserver.observe(linkElement);
+
+    // resize observer for the container — catches layout changes that affect positions
+    const containerResizeObserver = new ResizeObserver(scheduleUpdate);
+    containerResizeObserver.observe(containerElement);
+
+    // mutation observer on the container subtree — will fire when expand/collapse moves items
+    const mo = new MutationObserver(() => {
+      // schedule update on next animation frame
+      scheduleUpdate();
+    });
+    mo.observe(containerElement, {
+      childList: true,
+      subtree: true,
+      attributes: true, // if classes change that affect layout
+    });
+
+    // window resize
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      if (rafId != null) cancelAnimationFrame(rafId);
+      linkResizeObserver.disconnect();
+      containerResizeObserver.disconnect();
+      mo.disconnect();
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, [
+    activeHeading,
+    toc /* you might add manualOpen or expanded state here if you prefer */,
+  ]);
+
+  // Manual open state (click to open). Auto-open based on scroll (activeParent) will also expand.
+  const [manualOpen, setManualOpen] = React.useState<Record<string, boolean>>(
+    {},
+  );
+
+  const toggleManual = (h2Id: string) =>
+    setManualOpen((prev) => ({ ...prev, [h2Id]: !prev[h2Id] }));
+
+  // derive the active parent h2 id from activeHeading
+  const activeParent = React.useMemo(() => {
+    if (!activeHeading) return null;
+    // if activeHeading is a top-level id (h2)
+    if (topLevel.find((t) => t.url?.split("#")[1] === activeHeading)) {
+      return activeHeading;
+    }
+    // otherwise look up parent for h3
+    return parentMap[activeHeading] ?? null;
+  }, [activeHeading, parentMap, topLevel]);
+
+  if (!mounted || !toc?.items) return null;
 
   return (
     <div className="space-y-4">
@@ -98,6 +169,7 @@ export function TableOfContents({ toc }: TocProps) {
         <Icons.toc className="text-muted-foreground size-4" />
         <span className="text-foreground font-medium">On this page</span>
       </p>
+
       <div ref={containerRef} className="relative border-l pl-4">
         {indicator.visible && (
           <span
@@ -111,12 +183,89 @@ export function TableOfContents({ toc }: TocProps) {
             }}
           />
         )}
-        <Tree tree={toc} activeItem={activeHeading} />
+
+        <ul className="list-none space-y-1">
+          {topLevel.map((h2, idx) => {
+            const h2Id = h2.url?.split("#")[1];
+            const isActiveGroup = Boolean(h2Id && activeParent === h2Id);
+            const isManuallyOpen = Boolean(h2Id && manualOpen[h2Id]);
+            // auto-open (activeParent) OR manual open should show children; auto behavior takes precedence for render
+            const expanded = isActiveGroup || isManuallyOpen;
+
+            return (
+              <li key={idx} className="group">
+                <div className="flex items-center justify-between">
+                  <a
+                    href={h2.url}
+                    className={cn(
+                      "link-focus inline-block py-2 text-sm transition-colors",
+                      isActiveGroup
+                        ? "text-foreground"
+                        : "text-muted-foreground",
+                    )}
+                  >
+                    {h2.title}
+                  </a>
+
+                  {/* Chevron button (click toggles manual open), hidden if no children */}
+                  {h2.items?.length ? (
+                    <button
+                      aria-expanded={expanded}
+                      aria-controls={`toc-${h2Id}`}
+                      onClick={() => toggleManual(h2Id!)}
+                      className={cn(
+                        "text-muted-foreground hover:text-foreground -mr-2 ml-3 inline-flex items-center justify-center rounded p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-600",
+                      )}
+                    >
+                      <Icons.chevronRight
+                        className={cn(
+                          "text-muted-foreground size-4 transition-transform duration-200",
+                          expanded ? "rotate-90" : "rotate-0",
+                        )}
+                        aria-hidden
+                      />
+                    </button>
+                  ) : null}
+                </div>
+
+                {/* nested h3s: render only when expanded */}
+                {h2.items?.length ? (
+                  <ul
+                    id={`toc-${h2Id}`}
+                    className={cn(
+                      "mt-1 overflow-hidden transition-all duration-200",
+                      expanded ? "max-h-96" : "max-h-0",
+                    )}
+                  >
+                    {h2.items.map((h3, i) => {
+                      return (
+                        <li key={i} className="pl-4">
+                          <a
+                            href={h3.url}
+                            className={cn(
+                              "link-focus inline-block py-1 text-sm transition-colors",
+                              activeHeading === h3.url?.split("#")[1]
+                                ? "text-foreground"
+                                : "text-muted-foreground",
+                            )}
+                          >
+                            {h3.title}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : null}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
 }
 
+/* ---------- useActiveItem hook (unchanged logic) ---------- */
 function useActiveItem(itemIds: string[]) {
   const [activeId, setActiveId] = React.useState<string | null>(null);
   React.useEffect(() => {
@@ -146,43 +295,4 @@ function useActiveItem(itemIds: string[]) {
     };
   }, [itemIds]);
   return activeId;
-}
-
-function Tree({
-  tree,
-  level = 1,
-  activeItem,
-}: {
-  tree: TOCType;
-  level?: number;
-  activeItem?: string | null;
-}) {
-  return tree?.items?.length && level < 3 ? (
-    <ul
-      className={cn("list-none space-y-2", {
-        "pl-4 pt-2": level !== 1,
-      })}
-    >
-      {tree.items.map((item, index) => {
-        return (
-          <li key={index}>
-            <a
-              href={item.url}
-              className={cn(
-                "hover:text-foreground link-focus inline-block text-sm transition-colors",
-                item.url === `#${activeItem}`
-                  ? "text-foreground"
-                  : "text-muted-foreground",
-              )}
-            >
-              {item.title}
-            </a>
-            {item.items?.length ? (
-              <Tree tree={item} level={level + 1} activeItem={activeItem} />
-            ) : null}
-          </li>
-        );
-      })}
-    </ul>
-  ) : null;
 }
