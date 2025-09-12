@@ -14,6 +14,7 @@ export async function generateMetadata(
       description: frontmatter.description,
     };
   } catch (error) {
+    console.error("Failed to render blog post:", error);
     return {
       title: "Post Not Found",
     };
