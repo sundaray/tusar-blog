@@ -87,9 +87,8 @@ export function TableOfContents({ toc }: TocProps) {
       return;
     }
 
-    const escapeCssSelector = (
-      str: string, // ✨ Renamed 'esc'
-    ) => ((window as any).CSS?.escape ? (window as any).CSS.escape(str) : str);
+    const escapeCssSelector = (str: string) =>
+      (window as any).CSS?.escape ? (window as any).CSS.escape(str) : str;
 
     const selector = `a[href="#${escapeCssSelector(activeHeading)}"]`;
 
@@ -175,7 +174,7 @@ export function TableOfContents({ toc }: TocProps) {
 
       <div ref={containerRef} className="relative border-l pl-4">
         {indicator.visible && (
-          <span
+          <motion.span
             aria-hidden
             className="bg-foreground pointer-events-none absolute transition-all duration-200"
             style={{
@@ -187,22 +186,18 @@ export function TableOfContents({ toc }: TocProps) {
           />
         )}
 
-        <ul className="list-none space-y-2">
-          {topLevel.map((h2, idx) => {
+        <motion.ul layout className="list-none space-y-2">
+          {topLevel.map((h2) => {
             const h2Id = h2.url?.split("#")[1];
 
             const isActiveGroup = Boolean(h2Id && activeParent === h2Id);
-
-            const isChildActive = Boolean(
-              h2.items?.some((h3) => h3.url?.split("#")[1] === activeHeading),
-            );
 
             const isManuallyOpen = Boolean(h2Id && manualOpen[h2Id]);
 
             const expanded = isActiveGroup || isManuallyOpen;
 
             return (
-              <li key={idx} className="group">
+              <motion.li layout="position" key={h2Id} className="group">
                 <div className="flex items-center justify-between">
                   <a
                     href={h2.url}
@@ -211,7 +206,6 @@ export function TableOfContents({ toc }: TocProps) {
                       isActiveGroup
                         ? "text-foreground"
                         : "text-muted-foreground",
-                      isChildActive ? "font-medium" : "font-normal",
                     )}
                   >
                     {h2.title}
@@ -240,6 +234,7 @@ export function TableOfContents({ toc }: TocProps) {
                 <AnimatePresence initial={false} mode="popLayout">
                   {expanded && h2.items?.length ? (
                     <motion.ul
+                      layout
                       key={`submenu-${h2Id}`}
                       id={`toc-${h2Id}`}
                       initial="hidden"
@@ -268,10 +263,10 @@ export function TableOfContents({ toc }: TocProps) {
                     </motion.ul>
                   ) : null}
                 </AnimatePresence>
-              </li>
+              </motion.li>
             );
           })}
-        </ul>
+        </motion.ul>
       </div>
     </div>
   );
