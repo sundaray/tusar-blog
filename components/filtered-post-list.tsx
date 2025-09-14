@@ -4,6 +4,7 @@ import { ArrowLink } from "@/components/arrow-link";
 import { cn } from "@/lib/utils";
 import { Frontmatter } from "@/types";
 import { format } from "date-fns";
+import type { Route } from "next";
 import Link from "next/link";
 
 type Post = { slug: string } & Frontmatter;
@@ -43,7 +44,7 @@ export function FilteredPostList({
 
               <h2 className="mt-2 text-2xl font-bold hover:text-sky-700 dark:hover:text-sky-400">
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.slug}` as Route}
                   className="link-focus inline-block"
                 >
                   {post.title}
@@ -57,7 +58,7 @@ export function FilteredPostList({
 
             <footer className="mt-4">
               <ArrowLink
-                href={`/blog/${post.slug}`}
+                href={`/blog/${post.slug}` as Route}
                 aria-label={`Read more about ${post.title}`}
                 className="text-sky-700 dark:text-sky-400"
               >

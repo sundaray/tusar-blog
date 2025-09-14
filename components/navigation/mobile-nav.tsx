@@ -3,6 +3,7 @@
 import { navbarLinks } from "@/config/navbar";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -154,7 +155,7 @@ function MobileNavLink({
   onClick,
   children,
 }: {
-  href: string;
+  href: Route;
   onClick: () => void;
   children: React.ReactNode;
 }) {

@@ -8,6 +8,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { cn } from "@/lib/utils";
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -40,7 +41,7 @@ export function Breadcrumbs({ className }: { className?: string }) {
                   asChild
                   className="text-muted-foreground hover:text-foreground capitalize transition-colors hover:underline hover:underline-offset-2"
                 >
-                  <Link href={href}>{segment}</Link>
+                  <Link href={href as Route}>{segment}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </React.Fragment>

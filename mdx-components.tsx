@@ -2,11 +2,12 @@ import { CodeBlockWrapper } from "@/components/code-block-wrapper";
 import { Icons } from "@/components/icons";
 import { slugify } from "@/lib/utils";
 import type { MDXComponents } from "mdx/types";
+import type { Route } from "next";
 import Link, { LinkProps } from "next/link";
 import React from "react";
 
 type CustomLinkProps = React.HTMLAttributes<HTMLAnchorElement> &
-  Partial<LinkProps>;
+  Partial<LinkProps<Route>>;
 
 function CustomLink(props: CustomLinkProps) {
   const { href, children, ...rest } = props;
@@ -14,7 +15,7 @@ function CustomLink(props: CustomLinkProps) {
   if (typeof href === "string") {
     if (href.startsWith("/")) {
       return (
-        <Link href={href} {...rest}>
+        <Link href={href as Route} {...rest}>
           {props.children}
         </Link>
       );

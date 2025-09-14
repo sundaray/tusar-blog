@@ -1,3 +1,5 @@
+import type { Route } from "next";
+
 export interface Frontmatter {
   title: string;
   description: string;
@@ -10,5 +12,5 @@ export interface Frontmatter {
 
 export type NavItem = {
   title: string;
-  href: string;
+  href: Route;
 };
