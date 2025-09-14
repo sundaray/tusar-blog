@@ -6,6 +6,7 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
+  typedRoutes: true,
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 };
 

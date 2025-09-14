@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Link, { type LinkProps } from "next/link";
 import React from "react";
 
-interface ArrowLinkProps extends Omit<LinkProps, "children"> {
+interface ArrowLinkProps extends Omit<LinkProps<string>, "children"> {
   children: React.ReactNode;
   className?: string;
 }
@@ -18,20 +18,20 @@ export function ArrowLink({ children, className, ...props }: ArrowLinkProps) {
   );
 
   return (
-    <Link className={classes} {...(props as LinkProps)}>
+    <Link className={classes} {...(props as LinkProps<string>)}>
       <span>{children}</span>
 
       <div className="relative size-4">
         <Icons.chevronRight
           className={cn(
-            "absolute left-0 top-0 size-4 transition-all duration-300 ease-out group-hover:translate-x-2 group-hover:scale-95 group-hover:opacity-0",
-            "text-muted-foreground",
+            "absolute left-0 top-0 size-4 transition-all duration-200 ease-out group-hover:translate-x-2 group-hover:scale-95 group-hover:opacity-0",
+            "text-sky-700 dark:text-sky-400",
           )}
         />
         <Icons.chevronRight
           className={cn(
-            "absolute left-0 top-0 size-4 -translate-x-2 scale-95 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100",
-            "text-muted-foreground",
+            "absolute left-0 top-0 size-4 -translate-x-2 scale-95 opacity-0 transition-all duration-200 ease-out group-hover:translate-x-0 group-hover:scale-100 group-hover:opacity-100",
+            "text-sky-700 dark:text-sky-400",
           )}
         />
       </div>
