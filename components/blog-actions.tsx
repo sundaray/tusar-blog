@@ -14,7 +14,7 @@ import { FilteredPostList } from "./filtered-post-list";
 
 type Post = { slug: string } & Frontmatter;
 
-const POSTS_PER_PAGE = 1;
+const POSTS_PER_PAGE = 10;
 
 export function BlogActions({
   allPosts,
